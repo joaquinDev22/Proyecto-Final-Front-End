@@ -9,9 +9,9 @@ export default function Header({ darkMode }: HeaderProps) {
             </div>
             <h1 className="title">Job Board</h1>
             <nav className="nav">
-                <a href="/">Freelancer</a>
-                <a href="/about">Enterprise</a>
-                <a href="/contact">Bootcamp</a>
+                <a href="/freelancer">Freelancer</a>
+                <a href="/enterprise">Enterprise</a>
+                <a href="/bootcamp">Bootcamp</a>
                 <button className="signup-btn">Sign Up</button>
                 <button className="login-btn">Login</button>
             </nav>
