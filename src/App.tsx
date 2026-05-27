@@ -1,5 +1,5 @@
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -17,6 +17,7 @@ export default function App() {
       <Header darkMode={darkMode} />
       <main className="content">
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/freelancer" element={<Freelancer />} />
           <Route path="/enterprise" element={<Enterprise />} />

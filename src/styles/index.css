@@ -77,14 +77,14 @@ body {
   transform: scaleX(1);
 }
 
-.login-page {
+.login-page, .signup-page {
   min-height: calc(100vh - 120px);
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 2rem;
 }
-.login-title {
+.login-title, .signup-title {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -102,12 +102,31 @@ body {
   backdrop-filter: blur(10px);
   height: fit-content;
 }
-.login-form-btn {
+.signup-card {
+  background-color: rgba(216, 254, 255, 0.92);
+  width: 100%;
+  max-width: 500px;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  backdrop-filter: blur(10px);
+  height: fit-content;
+}
+.login-form-btn, .signup-form-btn {
   background-color: #ffffff;
   border: none;
   width: 100%;
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.link-terms{
+  font-size: xx-small;
+  font: inherit;
+  text-align: left;
+  margin-top: 1rem;
+  color: #045b70;
+  text-decoration: underline;
+  cursor: pointer;
 }
 .field input{
   display: flex;
