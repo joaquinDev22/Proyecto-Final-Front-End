@@ -16,13 +16,12 @@
 
 .login-card {
   background-color: rgba(216, 254, 255, 0.92);
-  width: 100%;
-  max-width: 480px;
+  width: auto;
+  height: auto;
   padding: 2.5rem;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
   backdrop-filter: blur(10px);
-  height: auto;
 }
 
 .link-terms {

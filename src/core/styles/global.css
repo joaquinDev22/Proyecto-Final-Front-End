@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: 'Inter';
@@ -10,13 +16,12 @@ body {
   display: flex;
   flex-direction: column;
 }
-
 .content {
   position: relative;
   flex: 1;
   overflow: hidden;
-  background-image: url("/fondo_pagina.png");
-  background-size: 100% 100%;
+  background-image: url("../public/body/fondo_pagina.png");
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }

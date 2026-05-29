@@ -2,7 +2,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50ch;
+  width: 100%;
+  max-width: 50ch;
   border: none;
   margin-bottom: 1em;
   border-radius: 5px;
@@ -39,5 +40,5 @@
   font-size: x-small;
   font-weight: 500;
   cursor: pointer;
-   font-size: 0.9rem;
+  font-size: 0.9rem;
 }

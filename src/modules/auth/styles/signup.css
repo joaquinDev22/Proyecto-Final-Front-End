@@ -1,81 +1,122 @@
 .signup-page {
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 160px);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 1rem 2rem;
 }
 
 .signup-title {
+  text-align: center;
+  background-color: #d8feff;
+  padding: 0.5rem;
+  border-radius: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.options {
+  background-color: #d8feff;
+  border-radius: 16px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 40px;
+}
+
+.signup-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.option-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background-color: rgba(255,255,255,0.85);
+  padding: 1.5rem;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.option-card:hover {
+  transform: scale(1.04) translateY(-5px);
+}
+
+/* SVG */
+
+.card-border {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* RECT */
+
+.border-rect {
+  fill: none;
+  stroke: url(#gradient);
+  stroke-width: 1;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+/* HOVER */
+
+.option-card:hover .border-rect {
+  stroke-dashoffset: 0;
+}
+
+.option-card-image {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2.5em;
-  margin-bottom: 1.5rem;
-}
-.signup-card{
-  background-color: #d8feff;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  overflow-y: auto;
-  max-height: 85vh;
-  padding: 2rem;
-}
-.signup-card-title{
-  text-align: center;
-  margin-bottom: 50px;
-}
-.signup-options-card{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
-.option-card{
-  background-color: rgb(255, 255, 255, 0.85);
-  overflow-y: auto;
-  max-height: 85vh;
-  margin-right: 5px;
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  cursor: pointer;
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-.option-card:hover {
-  transform: scale(1.04); /* Se agranda un 4% de forma suave */
-  box-shadow: 0 15px 35px rgba(0,0,0,0.22); /* Aumenta la sombra para dar sensación de elevación */
-}
-.option-card-image{
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-.option-card-image img{
+.option-card-image img {
   width: auto;
   height: 110px;
   object-fit: cover;
   border-radius: 50%;
   border: 1px solid #5cf1f7eb;
 }
-.option-card-title{
-  text-align: center;
+
+.option-card-image-principal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.option-card-description{
+
+.option-card-image-principal img {
+  width: auto;
+  height: 110px;
+  object-fit: cover;
+}
+
+.option-card-description {
   border-radius: 16px;
   text-align: center;
-  padding: 1rem;
-  background-color: rgb(243, 243, 243);
+  padding: 0.5rem;
+  background-color: rgb(212, 212, 212);
 }
-.option-card-description p{
-  margin: 0 auto;
+
+.option-card-description p {
+  margin: 0;
+  font-size: small;
   width: 100%;
   max-width: 40ch;
   line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .signup-options-card {
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+  }
 }

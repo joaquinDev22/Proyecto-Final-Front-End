@@ -8,7 +8,7 @@ export default function Header({ darkMode }: HeaderProps) {
     return (
         <header className="header">
             <div className="logo">
-                <img src={darkMode ? "/UTN_Logo_Light.png" : "/UTN_Logo_Dark.png"} alt="Logo" />
+                <img src={darkMode ? "../../public/logo/UTN_Logo_Ligth" : "../../public/logo/UTN_Logo_Dark.png"} alt="Logo" />
             </div>
             <Link to="/home" className="title-link">
                 <h1 className="title" >Job Board</h1>
