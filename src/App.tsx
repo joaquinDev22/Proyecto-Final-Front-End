@@ -1,15 +1,15 @@
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
+import Header from "./core/components/layout/Header";
+import Footer from "./core/components/layout/Footer";
 import { Routes, Route } from "react-router-dom";
 
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Freelancer from "./pages/Freelancer";
-import Enterprise from "./pages/Enterprise";
-import Bootcamp from "./pages/Bootcamp";
+import Home from "./modules/home/pages/Home";
+import Login from "./modules/auth/pages/Login";
+import Signup from "./modules/auth/pages/Signup";
+import Freelancer from "./modules/freelance/pages/Freelancer";
+import Enterprise from "./modules/jobs/pages/Enterprise";
+import Bootcamp from "./modules/bootcamp/pages/Bootcamp";
 
-import { useDarkMode } from "./hooks/useDarkMode";
+import { useDarkMode } from "./core/hooks/useDarkMode";
 export default function App() {
   const { darkMode } = useDarkMode();
   return (

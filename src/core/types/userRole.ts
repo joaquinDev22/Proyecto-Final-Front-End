@@ -1,0 +1,1 @@
+export type UserRole = |"CLIENTE"|"EMPRESA"|"FREELANCER"|"POSTULANTE"|"INSTRUCTOR";

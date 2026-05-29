@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 type HeaderProps = {
     darkMode: boolean;
 };
+import '../../styles/layout.css'
+import '../../styles/buttons.css'
 export default function Header({ darkMode }: HeaderProps) {
     return (
         <header className="header">

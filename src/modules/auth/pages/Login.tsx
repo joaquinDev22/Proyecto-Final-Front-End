@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
+import "../styles/login.css"
+import "../../../core/styles/forms.css"
 
 export default function Login() {
     return (
         <div className="login-page">
-                <div className="login-card">
+            <div className="login-card">
                 <h1 className="login-title">Welcome</h1>
-                <p className="welcome-text">Please enter your credentials to log in.</p>
+                <h2 className="welcome-text">Please enter your credentials to log in.</h2>
                 <form className="login-form">
                     <div className="field">
                         <p className="field-label">Username</p>

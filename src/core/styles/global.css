@@ -1,0 +1,34 @@
+body {
+  margin: 0;
+  font-family: 'Inter';
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background-image: url("/fondo_pagina.png");
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.light {
+  background-color: white;
+  color: black;
+  min-height: 100vh;
+}
+
+.dark {
+  background-color: #121212;
+  color: white;
+  min-height: 100vh;
+}

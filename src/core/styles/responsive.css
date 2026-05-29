@@ -1,0 +1,68 @@
+@media (max-width: 768px) {
+
+  .header {
+    flex-direction: column;
+    height: auto;
+    padding: 15px 20px;
+    gap: 15px;
+  }
+
+  .logo {
+    position: static;
+  }
+
+  .logo img {
+    width: 120px;
+  }
+
+  .title {
+    font-size: 32px;
+    text-align: center;
+    margin: 0;
+  }
+
+  .nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-link,
+  .option {
+    font-size: 18px;
+  }
+
+  .buttons,
+  .auth-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  button,
+  .btn {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .content {
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .content h1 {
+    font-size: 36px;
+  }
+
+  .content p {
+    font-size: 18px;
+  }
+
+  .footer {
+    padding: 30px 15px;
+    font-size: 16px;
+  }
+}
