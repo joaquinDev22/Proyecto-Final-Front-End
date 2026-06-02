@@ -1,8 +1,8 @@
+import Profile from "../../../core/components/layout/private/Profile";
 export default function Freelancer() {
     return (
-        <div className="freelancer">
-            <h1>Freelancer</h1>
-            <p>Discover a world of freelance opportunities and connect with clients seeking your expertise.</p>
+        <div className="freelancer-page">
+            <Profile userRole="freelance"/>
         </div>
     );
 }

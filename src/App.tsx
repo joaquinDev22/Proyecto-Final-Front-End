@@ -1,6 +1,7 @@
-import Header from "./core/components/layout/Header";
-import Footer from "./core/components/layout/Footer";
+import Header from "./core/components/layout/public/Header";
+import Footer from "./core/components/layout/public/Footer";
 import { Routes, Route } from "react-router-dom";
+
 
 import Home from "./modules/home/pages/Home";
 import Login from "./modules/auth/pages/Login";
@@ -12,7 +13,7 @@ import Bootcamp from "./modules/bootcamp/pages/Bootcamp";
 export default function App() {
   return (
     <div className="app">
-      <Header />
+      <Header/>
       <main className="content">
         <Routes>
           <Route path="/" element={<Home />} />

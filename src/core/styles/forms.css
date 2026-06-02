@@ -10,24 +10,17 @@
 .form-style-h2{
   text-align: center;
 }
+
 .form-container{
   display: flex;
-  width: 50%;
+  width: 100%;
   flex-direction: column;
   padding: 1.5rem;
   border-radius: 16px;
-  background-color: #a7f9ff3f;
+  background-color: #a7f9ff96;
   box-shadow: 0 0 10px #00a2ff8f,
               0 0 20px #00ccffa4,
               0 0 30px #00eeff94;
-}
-.form-container h2{
-  color: white;
-  text-shadow:
-    -1px -1px 0 #00ccffa4,
-    1px -1px 0 #00ccffa4,
-    -1px  1px 0 #00ccffa4,
-    1px  1px 0 #00ccffa4;
 }
 
 .field input {
@@ -40,7 +33,7 @@
   margin-bottom: 1em;
   border-radius: 5px;
   padding: 0.8rem 1rem;
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .field input:hover{
@@ -56,7 +49,6 @@
 }
 
 .field-label {
-  font-size: x-small;
   margin-bottom: 0.5rem;
   display: block;
   font-weight: 500;

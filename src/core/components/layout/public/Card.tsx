@@ -28,7 +28,10 @@ export default function Card({ title, description, imgClassName,src, onClick }: 
         </svg>
         <div className="option-card" onClick={() => onClick?.()}>
             <svg className="card-border" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <rect className="border-rect" x="0.5" y="0.5" width="99" height="98.86" rx="3" ry="3" />
+                <rect className="border-rect" 
+                x="0.5" y="0.5"
+                width="99" height="98.96" 
+                rx="3" ry="3" />
             </svg>
             <div className={imgClassName}>
                 <img src={src} alt="card-image" />

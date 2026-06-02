@@ -7,7 +7,7 @@ export default function CommonUserFields(){
         <Input placeholder="First name" label="First Name" type="text" name="firstname"/>
         <Input placeholder="Last name" label="Last Name" type="text" name="lastname"/>
         <Input placeholder="email@example.com" label="Email" type="email" name="email"/>
-        <h2 className="field-label">Date of birth</h2>
+        <a className="field-label">Date of birth</a>
         <div className="date-selector-container">
             <DateInput/>
         </div>

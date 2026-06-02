@@ -1,120 +1,18 @@
-/* ==========================================
-   ESTILOS ADAPTATIVOS PARA MÓVILES (max-width: 768px)
-   ========================================== */
 @media (max-width: 768px) {
-
-  /* Cabecera apilada para móviles */
-  .header {
-    flex-direction: column;
-    height: auto;
-    padding: 15px 20px;
-    gap: 15px;
-  }
-
-  .logo {
-    position: static;
-  }
-
-  .logo img {
-    width: 100px;
-    /* Logo ligeramente más pequeño en móviles */
-  }
-
-  .title {
-    font-size: 28px;
-    text-align: center;
-    margin: 0;
-  }
-
-  /* Menú de navegación en lista vertical */
-  .nav {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .nav-link,
-  .option {
-    font-size: 16px;
-    padding: 8px 12px;
-    width: 100%;
-    text-align: center;
-  }
-
-  /* Botones de Login / Sign Up ocupando todo el ancho */
-  .signup-btn,
-  .login-btn {
-    width: 100%;
-    max-width: 280px;
-  }
-
-  /* Contenido principal en pantallas móviles */
-  .content {
-    padding: 20px 15px;
-    text-align: center;
-  }
-
-  .content h1 {
-    font-size: 28px;
-  }
-
-  .content p {
-    font-size: 16px;
-  }
-
-  /* Tarjeta de Registro */
-  .signup-card {
-    padding: 15px;
-  }
-
-  .signup-card-title {
-    font-size: 24px;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-
   .option-card {
     width: 100%;
-    max-width: 320px;
-    margin-right: 0;
-    /* Quita el margen lateral del flex anterior */
   }
-
-  .option-card-description h2 {
-    font-size: 20px;
-  }
-
-  .option-card-description p {
-    font-size: 14px;
+  .container {
+    width: 100%;
+    max-width: calc(100% - 2rem);
   }
 }
-
-/* ==========================================
-   ESTILOS ADAPTATIVOS PARA TABLETS (min-width: 769px) y (max-width: 1200px)
-   ========================================== */
 @media (min-width: 769px) and (max-width: 1200px) {
-
-  /* La cabecera se mantiene en fila pero con menos separación */
-  .header {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 1rem 1.5rem;
+  .option-card-image img {
+    width: auto;
   }
-
-  .nav {
-    gap: 1rem;
-  }
-
-  .nav-link {
-    font-size: 16px;
-  }
-
-  .signup-btn,
-  .login-btn {
-    min-width: 100px;
-    height: 40px;
-    font-size: 0.9rem;
+  .container {
+    width: 80%;
+    max-width: 450px;
   }
 }

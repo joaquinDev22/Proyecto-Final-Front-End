@@ -1,15 +1,10 @@
-.page {
-  min-height: calc(100vh - 160px);
+.page{
+  min-height: calc(100vh - 60px);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
-  padding: 1rem 2rem;
-}
-
-.page-title {
-  text-align: center;
-  padding: 1rem;
+  padding: 2rem;
 }
 
 .login-title{
@@ -19,7 +14,7 @@
 .image-container{
   display: flex;
   width: auto;
-  height: 200px;
+  height: 100px;
   align-items: center;
   justify-content: center;
   margin: 0px;
@@ -33,11 +28,13 @@
 .input-container{
   margin-top: 15px;
 }
+
 .image-label{
   margin-left: 25px;
   font-weight: bold;
-  font-size: 80px;
+  font-size: 60px;
 }
+
 .link-terms {
   font-size: xx-small;
   font: inherit;
@@ -49,14 +46,14 @@
 }
 
 .suggest-text {
-  font: 1em inherit;
+  font-size: 0.8rem;
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .suggest-text-1 {
-  font-size: small;
-  font: inherit;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
   color: blue;
   text-decoration: underline;
   text-align: center;
@@ -64,25 +61,39 @@
 }
 
 .container{
+  width: 80%;
+  max-width: 1200px;
+  height: 50%;
+  margin-top: 0;
+}
+.container h2{
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+.card-container{
+  display: flex;
+  width: 100%;
+  margin: 0;
+  flex-direction: column;
+  height: fit-content;
+  padding: 0.5rem;
   border-radius: 16px;
   background-color: #a7f9ffad;
   box-shadow: 0 0 10px #00a2ff8f,
               0 0 20px #00ccffa4,
               0 0 30px #00eeff94;
+  align-items: center;
+  justify-content: center;
 }
-.container h1{
-  color: white;
-  text-shadow:
-    -1px -1px 0 #00ccffa4,
-    1px -1px 0 #00ccffa4,
-    -1px  1px 0 #00ccffa4,
-    1px  1px 0 #00ccffa4;
+.card-container h2{
+  margin-top: 0.5rem;
 }
-.card-container{
+.card-option-container{
   display: flex;
+  width: 100%;
+  margin: 0;
   height: fit-content;
-  padding: 1rem;
-  
 }
 
 .separator {
