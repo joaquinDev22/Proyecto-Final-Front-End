@@ -1,0 +1,107 @@
+.page {
+  min-height: calc(100vh - 160px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1rem 2rem;
+}
+
+.page-title {
+  text-align: center;
+  padding: 1rem;
+}
+
+.login-title{
+  text-align: center;
+}
+
+.image-container{
+  display: flex;
+  width: auto;
+  height: 200px;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+}
+
+.login-image{
+  width: inherit;
+  height: inherit;
+}
+
+.input-container{
+  margin-top: 15px;
+}
+.image-label{
+  margin-left: 25px;
+  font-weight: bold;
+  font-size: 80px;
+}
+.link-terms {
+  font-size: xx-small;
+  font: inherit;
+  text-align: left;
+  margin-top: 1rem;
+  color: #269cfc;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.suggest-text {
+  font: 1em inherit;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.suggest-text-1 {
+  font-size: small;
+  font: inherit;
+  color: blue;
+  text-decoration: underline;
+  text-align: center;
+  cursor: pointer;
+}
+
+.container{
+  border-radius: 16px;
+  background-color: #a7f9ffad;
+  box-shadow: 0 0 10px #00a2ff8f,
+              0 0 20px #00ccffa4,
+              0 0 30px #00eeff94;
+}
+.container h1{
+  color: white;
+  text-shadow:
+    -1px -1px 0 #00ccffa4,
+    1px -1px 0 #00ccffa4,
+    -1px  1px 0 #00ccffa4,
+    1px  1px 0 #00ccffa4;
+}
+.card-container{
+  display: flex;
+  height: fit-content;
+  padding: 1rem;
+  
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    gap: 1rem;
+    width: 100%;
+}
+
+.line {
+    flex: 1;
+    height: 1px;
+    background-color: #ccc;
+}
+
+.separator span {
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
