@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../../styles/calendar.css"
+
 export default function DateInput() {
 
     const [day, setDay] = useState("");
@@ -33,10 +33,12 @@ export default function DateInput() {
         (_, i) => currentYear - i
     );
 
-    return (
-        <div className="date-input">
+    const baseSelectClass = "text-center px-4 py-[0.8rem] bg-white text-black text-base font-bold border-2 border-[#2cd5ff] rounded-[7px] cursor-pointer transition-all duration-300 appearance-none hover:border-[#2c80ff] hover:shadow-[0_8px_20px_#2c80ff5d] focus:outline-none focus:shadow-[0_0_0_4px_#2c80ff5d,0_8px_20px_#2c80ff5d] disabled:opacity-50 disabled:cursor-not-allowed [&>option]:bg-white [&>option]:text-[#333]";
 
-            <select value={day} onChange={(e) => setDay(e.target.value)}>
+    return (
+        <div className="flex gap-4 justify-center items-center w-full">
+
+            <select value={day} onChange={(e) => setDay(e.target.value)} className={`${baseSelectClass} w-[100px]`}>
                 <option value="">Day</option>
                 {days.map((day) => (
                     <option key={day} value={day}>
@@ -45,7 +47,7 @@ export default function DateInput() {
                 ))}
             </select>
 
-            <select value={month} onChange={(e) => setMonth(e.target.value)} >
+            <select value={month} onChange={(e) => setMonth(e.target.value)} className={`${baseSelectClass} w-[180px]`}>
                 <option value="">Month</option>
                 {months.map((month, index) => (
                     <option
@@ -57,7 +59,7 @@ export default function DateInput() {
                 ))}
             </select>
 
-            <select value={year} onChange={(e) => setYear(e.target.value)}>
+            <select value={year} onChange={(e) => setYear(e.target.value)} className={`${baseSelectClass} w-[120px]`}>
                 <option value="">Year</option>
                 {years.map((year) => (
                     <option key={year} value={year}>

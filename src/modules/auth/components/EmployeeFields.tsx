@@ -35,7 +35,7 @@ export default function EmployeeFields({
 
             </div>
 
-            <div className="container-show">
+            <div className="flex items-center justify-start gap-2 mt-[10px] mb-[15px]">
 
                 <input
                     type="checkbox"
@@ -46,7 +46,7 @@ export default function EmployeeFields({
                     }
                 />
 
-                <label htmlFor="remote-only">
+                <label htmlFor="remote-only" className="m-0 font-inherit font-medium cursor-pointer text-[0.9rem]">
                     Remote jobs only
                 </label>
 

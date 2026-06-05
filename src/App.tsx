@@ -12,9 +12,9 @@ import Bootcamp from "./modules/bootcamp/pages/Bootcamp";
 
 export default function App() {
   return (
-    <div className="app">
+    <div className="min-h-screen flex flex-col bg-white text-black dark:bg-[#121212] dark:text-white">
       <Header/>
-      <main className="content">
+      <main className="relative flex-1 overflow-hidden bg-[url('/body/fondo_pagina.png')] bg-cover bg-center bg-no-repeat">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
