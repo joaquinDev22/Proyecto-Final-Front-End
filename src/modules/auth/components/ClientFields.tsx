@@ -4,14 +4,13 @@ import Button from "../../../core/components/ui/Button"
 
 export default function ClientFields(){
     return(
-       <div className="w-full max-w-[calc(100%-2rem)] md:w-[80%] md:max-w-[450px] mx-auto">
-            <div className="bg-[#d8feffeb] w-auto h-auto p-10 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.15)] backdrop-blur-[10px]">
-                <div className="image-container flex flex-col items-center">
-                    <img src="/logo/UTN_icon.png" className="login-image w-20 h-20 mb-4"/>
-                    <label className="image-label font-bold text-xl mb-4">JOB BOARD</label>
+       <div className="w-full max-w-[calc(100%-2rem)] md:w-[80%] md:max-w-[1250px] mx-auto">
+            <div className="bg-[#d8feffeb] w-auto h-auto p-10 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.15)] backdrop-blur-[10px] align-center justify-center">
+                <div className="image-container flex items-center justify-center">
+                    <img src="/logo/UTN_icon.png" className=" w-20 h-20 mb-4"/><span className="ml-8 text-black font-bold text-[30px] mb-4">JOB BOARD</span>
                 </div>
                 <div>
-                    <h2 className="text-center">Please enter your personal information</h2>
+                    <h2 className="text-center text-black font-bold text-[24px] mb-4">Please enter your personal information</h2>
                     <CommonUserFields/>
                     <Input placeholder="Phone number" type="tel" name="phone-number" label="Phone Number"/>
                     <Input placeholder="Country" type="text" name="country" label="Country"/>

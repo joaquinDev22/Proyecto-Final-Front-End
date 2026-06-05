@@ -13,7 +13,7 @@ export default function Signup(){
             {chooseOption === "" && (
                 <div className="w-[80%] max-w-[1200px] h-[50%] mt-0">
                     <div className="flex w-full m-0 flex-col h-fit p-2 rounded-2xl bg-[#a7f9ffad] shadow-[0_0_10px_#00a2ff8f,0_0_20px_#00ccffa4,0_0_30px_#00eeff94] items-center justify-center">
-                        <h1 className="mt-2 text-center font-bold text-2xl mb-4">Please select an option to sign up</h1>
+                        <h1 className="mt-2 text-center text-black font-bold text-2xl mb-4">Please select an option to sign up</h1>
                         <div className="flex w-full m-0 h-fit">                       
                             <Card title="Freelance" 
                                 description="Lorem ipsum dolor sit amet consectetur adipisicing elit. 
@@ -39,7 +39,7 @@ export default function Signup(){
             {chooseOption === "freelance" && formType === null && (
                 <div className="w-[80%] max-w-[1200px] h-[50%] mt-0">
                     <div className="flex w-full m-0 flex-col h-fit p-2 rounded-2xl bg-[#a7f9ffad] shadow-[0_0_10px_#00a2ff8f,0_0_20px_#00ccffa4,0_0_30px_#00eeff94] items-center justify-center">
-                        <h1 className="mt-2 text-center font-bold text-2xl mb-4">Who are you? (Choose an option)</h1>
+                        <h1 className="mt-2 text-center text-black font-bold text-2xl mb-4">Who are you? (Choose an option)</h1>
                         <div className="flex w-full m-0 h-fit">
                             <Card title="Freelancer" 
                                 description="Lorem ipsum dolor sit amet consectetur adipisicing elit. 
@@ -70,20 +70,21 @@ export default function Signup(){
             {chooseOption === "enterprise" && formType === null && (
                 <div className="w-[80%] max-w-[1200px] h-[50%] mt-0">
                     <div className="flex w-full m-0 flex-col h-fit p-2 rounded-2xl bg-[#a7f9ffad] shadow-[0_0_10px_#00a2ff8f,0_0_20px_#00ccffa4,0_0_30px_#00eeff94] items-center justify-center">
-                        <div className="flex w-full m-0 flex-col h-fit p-2 rounded-2xl bg-[#a7f9ffad] shadow-[0_0_10px_#00a2ff8f,0_0_20px_#00ccffa4,0_0_30px_#00eeff94] items-center justify-center">
-                            <Card title="Job Seeker" 
-                                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                Cupiditate odio laborum a perferendis nemo!" 
-                                src="/layout/job_seeker_image.png" 
-                                imgClassName="option-card-image"
-                                onClick={() => setFormType("job_seeker")}
-                            /> 
+                        <h1 className="mt-2 text-center text-black font-bold text-2xl mb-4">Who are you? (Choose an option)</h1>
+                        <div className="flex w-full m-0 h-fit">
                             <Card title="Recruiter" 
                                 description="Lorem ipsum dolor sit amet consectetur adipisicing elit. 
                                 Cupiditate odio laborum a perferendis nemo!" 
-                                src="/layout/recruiter_image.png" 
+                                src="/layout/cards/recruiter_image.png" 
                                 imgClassName="option-card-image"
                                 onClick={() => setFormType("recruiter")}
+                            /> 
+                            <Card title="Job Seeker" 
+                                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                Cupiditate odio laborum a perferendis nemo!" 
+                                src="/layout/cards/job_seeker_image.png"
+                                imgClassName="option-card-image"
+                                onClick={() => setFormType("job_seeker")}
                             />    
                         </div>
                     </div>

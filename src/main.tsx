@@ -1,7 +1,7 @@
 import { BrowserRouter } from "react-router-dom"
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
-import './core/styles/global.css'
+import './styles/global.css'
 import App from './App.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

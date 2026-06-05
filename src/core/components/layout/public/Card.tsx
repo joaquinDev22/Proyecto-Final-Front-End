@@ -38,8 +38,8 @@ export default function Card({ title, description, imgClassName,src, onClick }: 
                 <img src={src} alt="card-image" className={imgClass} />
             </div>
             <div className="rounded-2xl text-center p-2 bg-[#d4d4d4]">
-                <h2 className="m-2 text-base">{title}</h2>
-                <p className="m-0 text-[x-small] h-[120px] w-full max-w-[60ch] leading-[1.5]">{description}</p>
+                <h2 className="text-black font-bold m-2 text-base">{title}</h2>
+                <p className="text-black m-0 text-[x-small] h-[120px] w-full max-w-[60ch] leading-[1.5]">{description}</p>
             </div>
         </div>
         </>

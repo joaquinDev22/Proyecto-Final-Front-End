@@ -17,15 +17,15 @@ export default function EmployeeFields({
 
         <>
 
-            <div className="field">
+            <div className="flex flex-col mb-2 w-full">
 
-                <p className="field-label">
+                <p className="block mb-2 text-[0.7rem] text-black font-bold">
                     Technologies
                 </p>
 
                 <input
                     type="text"
-                    className="field-input"
+                    className="flex items-center justify-center w-full border-2 border-[#2cd5ff] mb-[1em] rounded-[5px] px-4 py-[0.8rem] text-[0.8rem] hover:border-[#2c80ff] hover:shadow-[0_8px_20px_#2c80ff5d] focus:outline-none focus:shadow-[0_0_0_4px_#2c80ff5d,0_8px_20px_#2c80ff5d]"
                     placeholder="React, Java, Spring..."
                     value={technologies}
                     onChange={(e) =>
