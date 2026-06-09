@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useShowPassword } from "../hooks/useShowPassword";
 import { useNavigate } from "react-router-dom";
 import Input from "../../../core/components/ui/Input";
@@ -10,6 +11,25 @@ export default function Login(){
     const navigate = useNavigate();
     const { login } = useAuth();
 
+    const [user, setUser] = useState('');
+    const [password, setPassword] = useState('');
+
+const handleLogin = async () => {
+        try {
+            // Usamos la función 'login' de tu AuthContext que ya hace la magia
+            await login({ 
+                usuario: user, // El backend espera 'usuario', pero tu estado se llama 'user'
+                password: password 
+            });
+            
+            alert("¡Login exitoso!");
+            navigate('/home'); // O la ruta principal a la que quieras ir
+        } catch (error) {
+            console.error("Error iniciando sesión:", error);
+            alert("Usuario o contraseña incorrectos");
+        }
+    };
+
     return(
         <div className="min-h-[calc(100vh-60px)] flex items-center justify-center flex-col p-8">
             <div className="w-[80%] max-w-[1200px] h-[50%] mt-0">
@@ -18,12 +38,12 @@ export default function Login(){
                         <img src="/logo/UTN_icon.png" className="h-full"/><span className="ml-[25px] text-black font-bold text-[60px]"> JOB BOARD </span>
                     </div>
                     <div className="mt-[15px]">
-                        <Input label="" type="text" name="username" placeholder="Username or email"/>
-                        <Input label="" type={showPassword ? "text" : "password"} name="password" placeholder="Password"/>
+                        <Input label="" type="text" name="username" placeholder="Username or email" value={user} onChange={(e) => setUser(e.target.value)} />
+                        <Input label="" type={showPassword ? "text" : "password"} name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         <Checkbox label="Show password" className="flex label: text-[black] font-bold items-center justify-start gap-2 mt-[10px] mb-[15px]" name="show" onClick={() => setShowPassword(!showPassword)} />
                         <p className=" text-[0.8rem] mt-2 text-blue-600 underline text-center cursor-pointer">Forgot your password?</p>
                         <p className="text-black text-[0.8rem] text-center mt-2 mb-4"> Don't have an account?<a className="text-[0.8rem] mt-2 text-blue-600 underline text-center cursor-pointer ml-1" onClick={() => navigate("/signup")}>Sign up</a></p>
-                        <Button containerName="" label="Login" imageSrc="" imageAlt="" className=" text-black bg-white border-none w-full rounded-[5px] shadow-[0_4px_6px_rgba(0,0,0,0.1)] px-6 py-[0.8rem] text-[1.1rem] font-semibold cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:bg-[#d8d7d7]" onClick={() => { login(); navigate("/profile"); }}/>
+                        <Button containerName="" label="Login" imageSrc="" imageAlt="" className=" text-black bg-white border-none w-full rounded-[5px] shadow-[0_4px_6px_rgba(0,0,0,0.1)] px-6 py-[0.8rem] text-[1.1rem] font-semibold cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:bg-[#d8d7d7]" onClick={handleLogin} />
                         <div className="flex items-center my-[30px] gap-4 w-full">
                             <div className="flex-1 h-[1px] bg-[#ccc]"></div>
                                 <span className="text-[#666] text-[0.9rem] font-semibold">OR</span>
