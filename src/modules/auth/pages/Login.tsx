@@ -1,59 +1,95 @@
-import { useState } from "react";
-import { useShowPassword } from "../hooks/useShowPassword";
-import { useNavigate } from "react-router-dom";
-import Input from "../../../core/components/ui/Input";
-import Checkbox from "../../../core/components/ui/Checkbox";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../../core/components/ui/Button";
-import { useAuth } from "../../../core/context/AuthContext";
 
-export default function Login(){
-    const {showPassword, setShowPassword} = useShowPassword();
+export default function Login() {
     const navigate = useNavigate();
-    const { login } = useAuth();
 
-    const [user, setUser] = useState('');
-    const [password, setPassword] = useState('');
-
-const handleLogin = async () => {
-        try {
-            // Usamos la función 'login' de tu AuthContext que ya hace la magia
-            await login({ 
-                usuario: user, // El backend espera 'usuario', pero tu estado se llama 'user'
-                password: password 
-            });
-            
-            alert("¡Login exitoso!");
-            navigate('/home'); // O la ruta principal a la que quieras ir
-        } catch (error) {
-            console.error("Error iniciando sesión:", error);
-            alert("Usuario o contraseña incorrectos");
-        }
+    const handleLogin = (e: React.FormEvent) => {
+        e.preventDefault();
+        // Simulate login
+        navigate('/profile');
     };
 
-    return(
-        <div className="min-h-[calc(100vh-60px)] flex items-center justify-center flex-col p-8">
-            <div className="w-[80%] max-w-[1200px] h-[50%] mt-0">
-                <div className="flex w-full flex-col p-6 rounded-2xl bg-[#a7f9ff96] shadow-[0_0_10px_#00a2ff8f,0_0_20px_#00ccffa4,0_0_30px_#00eeff94]">
-                    <div className="flex w-auto h-[100px] items-center justify-center m-0">
-                        <img src="/logo/UTN_icon.png" className="h-full"/><span className="ml-[25px] text-black font-bold text-[60px]"> JOB BOARD </span>
+    return (
+        <div className="flex-1 flex items-center justify-center px-4 py-12 relative overflow-hidden">
+            {/* Background Glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/20 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+
+            <div className="glass rounded-3xl p-8 sm:p-10 w-full max-w-md shadow-2xl relative z-10 border-t border-white/20">
+                <div className="flex justify-center mb-8">
+                    <img 
+                        src="/logo/logo_principal.png" 
+                        alt="WorkLink Logo" 
+                        className="h-30 w-auto object-contain drop-shadow-[0_0_15px_rgba(6,182,212,0.4)]" 
+                    />
+                </div>
+                
+                <div className="text-center mb-8">
+                    <h1 className="text-3xl font-bold mb-2 text-white tracking-tight">Welcome Back</h1>
+                    <p className="text-slate-400 text-sm">Enter your credentials to access your account.</p>
+                </div>
+
+                <form className="space-y-6" onSubmit={handleLogin}>
+                    <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-2 uppercase tracking-wider">Email or Username</label>
+                        <input 
+                            type="text" 
+                            placeholder="name@example.com" 
+                            className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-3 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all"
+                        />
                     </div>
-                    <div className="mt-[15px]">
-                        <Input label="" type="text" name="username" placeholder="Username or email" value={user} onChange={(e) => setUser(e.target.value)} />
-                        <Input label="" type={showPassword ? "text" : "password"} name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                        <Checkbox label="Show password" className="flex label: text-[black] font-bold items-center justify-start gap-2 mt-[10px] mb-[15px]" name="show" onClick={() => setShowPassword(!showPassword)} />
-                        <p className=" text-[0.8rem] mt-2 text-blue-600 underline text-center cursor-pointer">Forgot your password?</p>
-                        <p className="text-black text-[0.8rem] text-center mt-2 mb-4"> Don't have an account?<a className="text-[0.8rem] mt-2 text-blue-600 underline text-center cursor-pointer ml-1" onClick={() => navigate("/signup")}>Sign up</a></p>
-                        <Button containerName="" label="Login" imageSrc="" imageAlt="" className=" text-black bg-white border-none w-full rounded-[5px] shadow-[0_4px_6px_rgba(0,0,0,0.1)] px-6 py-[0.8rem] text-[1.1rem] font-semibold cursor-pointer transition-all duration-500 hover:scale-[1.03] hover:bg-[#d8d7d7]" onClick={handleLogin} />
-                        <div className="flex items-center my-[30px] gap-4 w-full">
-                            <div className="flex-1 h-[1px] bg-[#ccc]"></div>
-                                <span className="text-[#666] text-[0.9rem] font-semibold">OR</span>
-                            <div className="flex-1 h-[1px] bg-[#ccc]"></div>
+
+                    <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-2 uppercase tracking-wider">Password</label>
+                        <div className="relative">
+                            <input 
+                                type="password" 
+                                placeholder="••••••••" 
+                                className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-3 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 pr-12 transition-all"
+                            />
+                            <button type="button" className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 font-medium hover:text-white transition-colors">
+                                Show
+                            </button>
                         </div>
-                        <Button containerName="" imageClassName="w-5 h-5" label="Login with google" imageSrc="/layout/button/image.png" imageAlt="" className="text-black flex items-center justify-center bg-white border-none w-full rounded-[5px] px-6 py-[0.8rem] text-[1.1rem] font-semibold shadow-[0_4px_6px_rgba(0,0,0,0.1)] cursor-pointer gap-3" onClick={() => navigate("/auth/signup")}/>
                     </div>
+
+                    <div className="flex items-center justify-between pt-2">
+                        <label className="flex items-center gap-2 text-sm text-slate-300 cursor-pointer group">
+                            <div className="w-4 h-4 rounded border border-slate-600 flex items-center justify-center group-hover:border-cyan-400 transition-colors">
+                                {/* Invisible checkmark, would be managed by state */}
+                                <svg className="w-3 h-3 text-cyan-400 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                            </div>
+                            <span className="group-hover:text-white transition-colors">Remember me</span>
+                        </label>
+                        <a href="#" className="text-sm font-medium text-cyan-400 hover:text-cyan-300 transition-colors">Forgot password?</a>
+                    </div>
+
+                    <Button type="submit" className="w-full py-3 text-base shadow-lg shadow-cyan-500/20">
+                        Log In
+                    </Button>
+                </form>
+
+                <div className="mt-8 flex items-center justify-center">
+                    <div className="h-px bg-white/10 flex-1"></div>
+                    <span className="px-4 text-xs text-slate-400 font-medium uppercase tracking-wider">Or continue with</span>
+                    <div className="h-px bg-white/10 flex-1"></div>
+                </div>
+
+                <div className="mt-6 flex gap-4">
+                    <Button variant="secondary" className="flex-1 flex items-center justify-center gap-2 py-3">
+                        <svg className="w-5 h-5" viewBox="0 0 24 24"><path fill="currentColor" d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.761H12.545z"/></svg>
+                        Google
+                    </Button>
+                    <Button variant="secondary" className="flex-1 flex items-center justify-center gap-2 py-3">
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd"/></svg>
+                        GitHub
+                    </Button>
+                </div>
+
+                <div className="mt-8 text-center text-sm text-slate-400">
+                    Don't have an account? <Link to="/signup" className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors">Sign up</Link>
                 </div>
             </div>
-            <Button containerName="fixed bottom-[60px] right-[30px] z-[1000]" label="Back" imageSrc="" imageAlt="" className="flex items-center justify-center bg-[#4bcdee] min-w-[110px] h-[45px] text-base font-bold text-white no-underline border-none rounded-[10px] cursor-pointer transition-all duration-300 hover:bg-[#3398b1] hover:scale-[1.04] hover:-translate-y-[5px] hover:shadow-[0_0_10px_rgba(0,191,255,0.4),0_0_20px_rgba(123,44,255,0.3),0_0_30px_rgba(255,0,204,0.2)]" onClick={() => navigate("/home")}/>
         </div>
     );
 }

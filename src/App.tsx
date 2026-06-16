@@ -15,9 +15,9 @@ import ProtectedRoute from "./core/components/layout/private/ProtectedRoute";
 export default function App() {
   return (
     <AuthProvider>
-      <div className="min-h-screen flex flex-col bg-white text-black dark:bg-[#121212] dark:text-white">
+      <div className="min-h-screen flex flex-col bg-[#0b1121] text-white font-sans">
         <Header/>
-        <main className="relative flex-1 overflow-hidden bg-[url('/body/fondo_pagina.png')] bg-cover bg-center bg-no-repeat">
+        <main className="relative flex-1 overflow-hidden flex flex-col">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />

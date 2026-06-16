@@ -1,21 +1,51 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Button from "../../ui/Button";
 
 export default function Header() {
+    const location = useLocation();
+    const navigate = useNavigate();
+    
+    const isActive = (path: string) => location.pathname === path;
+    
+    const navLinkClass = (path: string) => 
+        `text-sm font-semibold transition-all duration-300 ${
+            isActive(path) 
+            ? "text-cyan-400 border-b-2 border-cyan-400 pb-1 drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]" 
+            : "text-gray-300 hover:text-cyan-400 hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]"
+        }`;
+
     return (
-        <header className="flex bg-white items-center justify-between px-6 py-2 sticky top-0 z-10 shadow-md:bg-gray-800">
-            <div className="flex items-center">
-                <img src="../../public/logo/UTN_Logo_Dark.png" alt="Logo" className="h-10 w-auto" />
+        <header className="sticky top-0 z-50 bg-[#0b1121]/90 backdrop-blur-md border-b border-white/5 w-full flex justify-center">
+            <div className="flex items-center justify-between w-full max-w-[1400px] px-6 md:px-12 py-4">
+                <Link to="/home" className="flex items-center gap-3 no-underline hover:opacity-80 transition-opacity">
+                    <img 
+                        src="/logo/logo_principal.png" 
+                        alt="WorkLink Logo" 
+                        className="h-15 w-auto object-contain" 
+                    />
+                    <span className="text-2xl font-bold tracking-tight text-white">
+                        Work<span className="text-cyan-400">Link</span>
+                    </span>
+                </Link>
+                
+                <nav className="hidden md:flex items-center gap-10">
+                    <Link to="/freelancer" className={navLinkClass("/freelancer")}>Freelancers</Link>
+                    <Link to="/enterprise" className={navLinkClass("/enterprise")}>Enterprise</Link>
+                    <Link to="/bootcamp" className={navLinkClass("/bootcamp")}>Bootcamps</Link>
+                </nav>
+                
+                <div className="flex items-center gap-4">
+                    <button 
+                        className="px-4 py-2 text-sm font-medium transition-all duration-300 border border-transparent text-white active:border-white focus:border-white active:shadow-[0_0_10px_rgba(255,255,255,0.6)] focus:shadow-[0_0_10px_rgba(255,255,255,0.6)] outline-none rounded-lg cursor-pointer" 
+                        onClick={() => navigate("/login")}
+                    >
+                        Log in
+                    </button>
+                    <Button variant="primary" size="sm" onClick={() => navigate("/signup")}>
+                        Sign up
+                    </Button>
+                </div>
             </div>
-            <Link to="/home" className="no-underline text-inherit">
-                <h1 className="text-black font-bold text-[1.6rem] m-0 cursor-pointer" >Job Board</h1>
-            </Link>
-            <nav className="flex items-center justify-center gap-4 bg-transparent p-0 dark:bg-transparent">
-                <Link to="/freelancer" className="text-black font-bold  font-medium no-underline relative inline-block px-[0.7rem] py-2 rounded-[5px] cursor-pointer after:content-[''] after:absolute after:w-full after:h-1 after:bottom-0 after:left-0 after:bg-[#35c2e6] after:rounded-[20px] after:shadow-[0_0_20px_#1292b3] after:scale-x-0 after:origin-center after:transition-transform after:duration-500 hover:after:scale-x-100">Freelancer</Link>
-                <Link to="/enterprise" className="text-black font-bold font-medium no-underline relative inline-block px-[0.7rem] py-2 rounded-[5px] cursor-pointer after:content-[''] after:absolute after:w-full after:h-1 after:bottom-0 after:left-0 after:bg-[#35c2e6] after:rounded-[20px] after:shadow-[0_0_20px_#1292b3] after:scale-x-0 after:origin-center after:transition-transform after:duration-500 hover:after:scale-x-100">Enterprise</Link>
-                <Link to="/bootcamp" className="text-black font-bold font-medium no-underline relative inline-block px-[0.7rem] py-2 rounded-[5px] cursor-pointer after:content-[''] after:absolute after:w-full after:h-1 after:bottom-0 after:left-0 after:bg-[#35c2e6] after:rounded-[20px] after:shadow-[0_0_20px_#1292b3] after:scale-x-0 after:origin-center after:transition-transform after:duration-500 hover:after:scale-x-100">Bootcamp</Link>
-                <Link to="/signup" className="no-underline flex items-center justify-center min-w-[110px] h-[45px] px-4 py-2 rounded-[5px] text-base font-medium transition-all duration-200 bg-transparent text-[#045b70] border-2 border-[#139cbe] hover:bg-[#0f365e] hover:text-white hover:shadow-[0_0_35px_rgba(0,191,255,0.678)]">Sign Up</Link>
-                <Link to="/login" className="no-underline flex items-center justify-center min-w-[110px] h-[45px] px-4 py-2 rounded-[5px] text-base font-medium transition-all duration-200 bg-[#139cbe] text-white border-2 border-[#139cbe] hover:bg-[#0f365e] hover:shadow-[0_0_35px_rgba(0,191,255,0.678)]">Login</Link>
-            </nav>
         </header>
     );
 }

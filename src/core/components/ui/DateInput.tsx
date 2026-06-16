@@ -33,7 +33,7 @@ export default function DateInput() {
         (_, i) => currentYear - i
     );
 
-    const baseSelectClass = "text-center px-4 py-[0.8rem] bg-white text-black text-base font-bold border-2 border-[#2cd5ff] rounded-[7px] cursor-pointer transition-all duration-300 appearance-none hover:border-[#2c80ff] hover:shadow-[0_8px_20px_#2c80ff5d] focus:outline-none focus:shadow-[0_0_0_4px_#2c80ff5d,0_8px_20px_#2c80ff5d] disabled:opacity-50 disabled:cursor-not-allowed [&>option]:bg-white [&>option]:text-[#333]";
+    const baseSelectClass = "w-full bg-dark-bg/50 border border-white/10 rounded-xl p-3 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white transition-all appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed [&>option]:bg-[#0b1121] [&>option]:text-white";
 
     return (
         <div className="flex gap-4 justify-center items-center w-full">

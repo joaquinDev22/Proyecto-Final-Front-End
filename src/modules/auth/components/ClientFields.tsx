@@ -1,21 +1,48 @@
 import CommonUserFields from "./CommonUserFields"
 import Input from "../../../core/components/ui/Input"
 import Button from "../../../core/components/ui/Button"
+import {useCreateAccount} from "../hooks/useCreateAccount"
+import useShowAlert from "../../../core/hooks/useShowAlert"
+import Alert from "../../../core/components/ui/Alert"
+import { useNavigate } from "react-router-dom"
 
 export default function ClientFields(){
+    const {accountType, setAccountType, createAccount, setCreateAccount} = useCreateAccount();
+    const Navigate = useNavigate();
+    const {isRendered, showAlert, triggerAlert} = useShowAlert();
+
     return(
        <div className="w-full max-w-[calc(100%-2rem)] md:w-[80%] md:max-w-[1250px] mx-auto">
-            <div className="bg-[#d8feffeb] w-auto h-auto p-10 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.15)] backdrop-blur-[10px] align-center justify-center">
+            <div className="glass w-auto h-auto p-10 rounded-2xl align-center justify-center border-t border-white/10">
                 <div className="image-container flex items-center justify-center">
-                    <img src="/logo/UTN_icon.png" className=" w-20 h-20 mb-4"/><span className="ml-8 text-black font-bold text-[30px] mb-4">JOB BOARD</span>
+                    <img src="/logo/logo_principal.png" className="w-48 h-auto mb-8 drop-shadow-[0_0_15px_rgba(6,182,212,0.4)]"/>
                 </div>
-                <div>
-                    <h2 className="text-center text-black font-bold text-[24px] mb-4">Please enter your personal information</h2>
-                    <CommonUserFields/>
-                    <Input placeholder="Phone number" type="tel" name="phone-number" label="Phone Number"/>
-                    <Input placeholder="Country" type="text" name="country" label="Country"/>
-                    <Button containerName="flex items-center justify-center mt-[30px]" label="Sign Up" className="bg-[#00ffaa] text-white border-none w-full rounded-[5px] shadow-[0_4px_6px_rgba(0,0,0,0.1)] px-6 py-[0.8rem] text-[1.1rem] font-semibold cursor-pointer" imageSrc="" imageAlt=""/>
-                </div>
+                    {!isRendered && (
+                        <>
+                            {!createAccount && (                    
+                                <div>
+                                    <h2 className="text-center text-white font-bold text-2xl mb-6">Please enter your personal information</h2>
+                                    <CommonUserFields/>
+                                    <Input placeholder="Phone number" type="tel" name="phone-number" label="Phone Number"/>
+                                    <Input placeholder="Country" type="text" name="country" label="Country"/>
+                                    <Button containerName="mt-8" label="Next" variant="primary" className="w-full text-lg py-3" 
+                                    onClick={() => setCreateAccount(true)}/>
+                                </div>
+                            )}
+                            {createAccount && (
+                                <div>
+                                    <Input placeholder="Username" type="text" name="username" label="Username"/>
+                                    <Input placeholder="Password" type="password" name="password" label="Password"/>
+                                    <Input placeholder="Confirm password" type="password" name="confirm-password" label="Confirm Password"/>
+                                    <Button containerName="mt-8" label="Create Account" variant="primary" className="w-full text-lg py-3"
+                                        onClick={() => triggerAlert(()=> Navigate("/login"))}/>
+                                </div>
+                            )}
+                        </>
+                    )}
+                    {isRendered && (
+                        <Alert message="Account created successfully!" type="success" isVisible={showAlert} />
+                    )}
             </div>
        </div>
     )
