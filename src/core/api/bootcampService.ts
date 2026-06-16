@@ -1,5 +1,5 @@
 import api from './axiosConfig';
-import type { Bootcamp } from '../data/mockData';
+import type { Bootcamp } from '../types/models';
 
 const mapModalidad = (modalidad: string): 'En línea' | 'Presencial' | 'Híbrido' => {
     if (!modalidad) return 'En línea';

@@ -1,5 +1,5 @@
 import Badge from '../../../core/components/ui/Badge';
-import { type Job } from '../../../core/data/mockData';
+import { type Job } from '../../../core/types/models';
 
 type JobCardProps = {
     job: Job;

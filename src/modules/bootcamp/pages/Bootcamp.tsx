@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import Button from '../../../core/components/ui/Button';
 import Badge from '../../../core/components/ui/Badge';
 import { bootcampService } from '../../../core/api/bootcampService';
-import type { Bootcamp as BootcampType } from '../../../core/data/mockData';
+import type { Bootcamp as BootcampType } from '../../../core/types/models';
+import Input from '../../../core/components/ui/Input';
 
 export default function Bootcamp() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -40,13 +41,13 @@ export default function Bootcamp() {
                     
                     {/* Search Bar Container */}
                     <div className="w-full max-w-2xl mx-auto relative z-10">
-                        <div className="glass rounded-2xl p-2 pl-6 flex flex-col md:flex-row items-center gap-2">
-                            <div className="flex-1 w-full flex items-center gap-3">
+                        <div className="glass rounded-2xl p-4 flex flex-col md:flex-row items-center gap-2">
+                            <div className="flex-1 flex items-center gap-3 bg-dark-bg/50 px-4 py-2 rounded-xl border border-white/5 focus-within:border-cyan-500 transition-color">
                                 <span className="text-xl">🔍</span>
-                                <input 
+                                <Input 
                                     type="text"
-                                    placeholder="Buscar 'Desarrollo Web', 'Data Science'..."
-                                    className="w-full bg-transparent border-none text-white focus:outline-none focus:ring-0 text-base"
+                                    className="w-full bg-transparent border-none text-white focus:outline-none text-sm"
+                                    placeholder="Buscar 'Desarrollo Web', 'Data Science'"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                 />

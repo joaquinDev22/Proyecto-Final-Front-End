@@ -1,12 +1,28 @@
 import { useState, useEffect } from 'react';
 import ProjectCard from '../components/ProjectCard';
 import { freelanceService } from '../../../core/api/freelanceService';
-import type { FreelanceProject as FreelanceProjectType } from '../../../core/data/mockData';
+import type { FreelanceProject as FreelanceProjectType } from '../../../core/types/models';
 import Button from '../../../core/components/ui/Button';
+import Input from '../../../core/components/ui/Input';
+import Select from '../../../core/components/ui/Select';
 
 export default function Freelancer() {
     const [searchTerm, setSearchTerm] = useState('');
     const [projects, setProjects] = useState<FreelanceProjectType[]>([]);
+    
+    const [paymentType, setPaymentType] = useState('all');
+    const paymentOptions = [
+        { label: 'Todos los tipos de pago', value: 'all' },
+        { label: 'Precio Fijo', value: 'fixed' },
+        { label: 'Tarifa por Hora', value: 'hourly' }
+    ];
+
+    const [sortBy, setSortBy] = useState('recent');
+    const sortOptions = [
+        { label: 'Más recientes', value: 'recent' },
+        { label: 'Mayor presupuesto', value: 'budget' },
+        { label: 'Menos propuestas', value: 'proposals' }
+    ];
 
     useEffect(() => {
         freelanceService.getAll().then(data => {
@@ -33,10 +49,10 @@ export default function Freelancer() {
             </div>
 
             {/* Search and Filters */}
-            <div className="glass rounded-2xl p-4 mb-8 flex flex-col sm:flex-row gap-4">
+            <div className="glass rounded-2xl p-4 mb-8 flex flex-col sm:flex-row gap-4 relative z-20">
                 <div className="flex-1 flex items-center gap-3 bg-dark-bg/50 px-4 py-2 rounded-xl border border-white/5 focus-within:border-purple-500 transition-colors">
                     <span className="text-lg">🔍</span>
-                    <input 
+                    <Input 
                         type="text" 
                         placeholder="Buscar habilidades (ej., React, SEO, Solidity)..." 
                         className="w-full bg-transparent border-none text-white focus:outline-none text-sm"
@@ -44,11 +60,12 @@ export default function Freelancer() {
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
-                <select className=" bg-dark-bg/50 border border-white/5 rounded-xl px-4 py-2 text-sm text-white outline-none focus:border-purple-500 cursor-pointer sm:w-48">
-                    <option>Todos los tipos de pago</option>
-                    <option>Precio Fijo</option>
-                    <option>Tarifa por Hora</option>
-                </select>
+                <Select 
+                    value={paymentType}
+                    onChange={setPaymentType}
+                    options={paymentOptions}
+                    className="sm:w-64"
+                />
                 <Button className="rounded-[8px] p-2 bg-purple-600 hover:bg-purple-500 hover:shadow-[0_0_15px_rgba(168,85,247,0.4)] whitespace-nowrap">
                     Encontrar Proyectos
                 </Button>
@@ -56,17 +73,18 @@ export default function Freelancer() {
 
             {/* Main Content */}
             <div className="flex-1">
-                <div className="flex justify-between items-center mb-6">
+                <div className="flex justify-between items-center mb-6 relative z-10">
                     <p className="text-sm font-medium text-slate-400">
                         Mostrando <span className="text-white">{filteredProjects.length}</span> proyectos disponibles
                     </p>
                     <div className="flex items-center gap-2 text-sm text-slate-400">
                         <span>Ordenar por:</span>
-                        <select className="bg-transparent border-none text-white outline-none cursor-pointer font-medium">
-                            <option>Más recientes</option>
-                            <option>Mayor presupuesto</option>
-                            <option>Menos propuestas</option>
-                        </select>
+                        <Select 
+                            value={sortBy}
+                            onChange={setSortBy}
+                            options={sortOptions}
+                            className="w-48 bg-transparent !border-transparent"
+                        />
                     </div>
                 </div>
 

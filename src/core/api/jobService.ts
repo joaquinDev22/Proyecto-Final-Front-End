@@ -1,5 +1,5 @@
 import api from './axiosConfig';
-import type { Job } from '../data/mockData';
+import type { Job } from '../types/models';
 
 const mapLocationType = (type: string): 'Remoto' | 'Presencial' | 'Híbrido' => {
     if (!type) return 'Remoto';

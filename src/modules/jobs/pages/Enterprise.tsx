@@ -1,15 +1,23 @@
 import { useState, useEffect } from 'react';
 import JobCard from '../components/JobCard';
 import { jobService } from '../../../core/api/jobService';
-import type { Job as JobType } from '../../../core/data/mockData';
+import type { Job as JobType } from '../../../core/types/models';
 import Button from '../../../core/components/ui/Button';
 import Input from '../../../core/components/ui/Input';
+import Select from '../../../core/components/ui/Select';
 
 export default function Enterprise() {
     const [searchTerm, setSearchTerm] = useState('');
     const [typeFilters, setTypeFilters] = useState<Set<string>>(new Set());
     const [locationFilters, setLocationFilters] = useState<Set<string>>(new Set());
     const [jobs, setJobs] = useState<JobType[]>([]);
+    const [sortBy, setSortBy] = useState('recent');
+
+    const sortOptions = [
+        { label: 'Más Recientes', value: 'recent' },
+        { label: 'Más Relevantes', value: 'relevant' },
+        { label: 'Mayor Salario', value: 'salary' }
+    ];
 
     useEffect(() => {
         jobService.getAll().then(data => {
@@ -102,15 +110,16 @@ export default function Enterprise() {
 
                 {/* Main Content */}
                 <div className="flex-1 w-full">
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4 relative z-10">
                         <p className="text-sm font-medium text-slate-400">
                             Mostrando <span className="text-white">{filteredJobs.length}</span> resultados
                         </p>
-                        <select className="bg-dark-bg/50 border border-white/10 rounded-lg px-4 py-2 text-sm text-white outline-none focus:border-cyan-400 cursor-pointer">
-                            <option>Más Recientes</option>
-                            <option>Más Relevantes</option>
-                            <option>Mayor Salario</option>
-                        </select>
+                        <Select 
+                            value={sortBy} 
+                            onChange={setSortBy} 
+                            options={sortOptions} 
+                            className="w-48"
+                        />
                     </div>
 
                     <div className="space-y-4">

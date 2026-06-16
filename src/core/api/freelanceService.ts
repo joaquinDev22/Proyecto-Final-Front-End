@@ -1,5 +1,5 @@
 import api from './axiosConfig';
-import type { FreelanceProject } from '../data/mockData';
+import type { FreelanceProject } from '../types/models';
 
 const mapPaymentType = (type: string): 'Fijo' | 'Por hora' => {
     if (!type) return 'Fijo';

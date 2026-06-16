@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from "../../../core/components/ui/Input";
 import Button from "../../../core/components/ui/Button";
-import { jobCategories } from "../../../core/data/mockData";
-import type { Job as JobType } from "../../../core/data/mockData";
+import { jobCategories } from "../../../core/utils/constants";
+import type { Job as JobType } from "../../../core/types/models";
 import { jobService } from '../../../core/api/jobService';
 import Badge from "../../../core/components/ui/Badge";
 
@@ -32,7 +32,7 @@ export default function Home() {
                 </div>
 
                 {/* Hero Section */}
-                <div className="text-center mx-auto mb-10 w-full max-w-4xl">
+                <div className="text-center mx-auto mb-10 w-full max-w-5xl">
                     <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight">
                         Encuentra el trabajo que amas, <br/>
                         <span className="text-gradient-brand">bajo tus propios términos.</span>
@@ -43,9 +43,9 @@ export default function Home() {
                 </div>
 
                 {/* Search Bar Container */}
-                <div className="w-full max-w-2xl mb-12 relative z-10">
-                    <div className="glass rounded-2xl p-2 pl-6 flex flex-col md:flex-row items-center gap-2">
-                        <div className="flex-1 w-full flex items-center gap-3">
+                <div className="w-full max-w-3xl mb-12 relative z-10">
+                    <div className="glass rounded-2xl p-4 flex flex-col md:flex-row items-center gap-2">
+                        <div className="flex-1 flex items-center gap-3 bg-dark-bg/50 px-4 py-2 rounded-xl border border-white/5 focus-within:border-cyan-500 transition-color">
                             <span className="text-xl">🔍</span>
                             <Input 
                                 type="text"
@@ -53,15 +53,6 @@ export default function Home() {
                                 className="w-full bg-transparent border-none text-white focus:outline-none focus:ring-0 text-base"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                            />
-                        </div>
-                        <div className="w-full md:w-auto h-px md:h-8 w-full md:w-px bg-white/10 my-2 md:my-0 mx-2"></div>
-                        <div className="flex-1 w-full flex items-center gap-3">
-                            <span className="text-xl">📍</span>
-                            <Input
-                                type="text"
-                                placeholder="Ciudad, estado o 'Remoto'"
-                                className="w-full bg-transparent border-none text-white focus:outline-none focus:ring-0 text-base"
                             />
                         </div>
                         <Button className="w-full md:w-auto px-8 py-3 rounded-xl text-base" onClick={() => navigate('/enterprise')}>

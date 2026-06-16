@@ -1,5 +1,5 @@
 import Badge from '../../../core/components/ui/Badge';
-import { type FreelanceProject } from '../../../core/data/mockData';
+import { type FreelanceProject } from '../../../core/types/models';
 
 type ProjectCardProps = {
     project: FreelanceProject;
