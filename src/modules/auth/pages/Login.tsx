@@ -1,13 +1,32 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import Button from "../../../core/components/ui/Button";
+import { useAuth } from "../../../core/context/AuthContext";
+import { useShowPassword } from "../hooks/useShowPassword";
 
 export default function Login() {
     const navigate = useNavigate();
+    const { login } = useAuth();
+    
+    const [usuario, setUsuario] = useState("");
+    const [password, setPassword] = useState("");
+    const [rememberMe, setRememberMe] = useState(false);
+    const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const { showPassword, setShowPassword } = useShowPassword();
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Simulate login
-        navigate('/profile');
+        setError("");
+        setIsLoading(true);
+        try {
+            await login({ usuario, password });
+            navigate('/profile');
+        } catch (err: any) {
+            setError(err.response?.data?.mensaje || "Error al iniciar sesión. Verifica tus credenciales.");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -29,12 +48,21 @@ export default function Login() {
                     <p className="text-slate-400 text-sm">Ingresa tus credenciales para acceder a tu cuenta.</p>
                 </div>
 
+                {error && (
+                    <div className="mb-4 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm text-center">
+                        {error}
+                    </div>
+                )}
+
                 <form className="space-y-6" onSubmit={handleLogin}>
                     <div>
                         <label className="block text-xs font-semibold text-slate-300 mb-2 uppercase tracking-wider">Correo o Usuario</label>
                         <input 
                             type="text" 
-                            placeholder="name@example.com" 
+                            placeholder="Usuario o correo" 
+                            value={usuario}
+                            onChange={(e) => setUsuario(e.target.value)}
+                            required
                             className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-3 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all"
                         />
                     </div>
@@ -43,29 +71,41 @@ export default function Login() {
                         <label className="block text-xs font-semibold text-slate-300 mb-2 uppercase tracking-wider">Contraseña</label>
                         <div className="relative">
                             <input 
-                                type="password" 
+                                type={showPassword ? "text" : "password"} 
                                 placeholder="••••••••" 
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
                                 className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-3 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 pr-12 transition-all"
                             />
-                            <button type="button" className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 font-medium hover:text-white transition-colors">
-                                Mostrar
+                            <button 
+                                type="button" 
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 font-medium hover:text-white transition-colors"
+                            >
+                                {showPassword ? "Ocultar" : "Mostrar"}
                             </button>
                         </div>
                     </div>
 
                     <div className="flex items-center justify-between pt-2">
-                        <label className="flex items-center gap-2 text-sm text-slate-300 cursor-pointer group">
-                            <div className="w-4 h-4 rounded border border-slate-600 flex items-center justify-center group-hover:border-cyan-400 transition-colors">
-                                {/* Invisible checkmark, would be managed by state */}
-                                <svg className="w-3 h-3 text-cyan-400 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                        <label 
+                            className="flex items-center gap-2 text-sm text-slate-300 cursor-pointer group"
+                            onClick={(e) => {
+                                e.preventDefault(); // Prevent default label click behavior that might toggle twice
+                                setRememberMe(!rememberMe);
+                            }}
+                        >
+                            <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${rememberMe ? 'bg-cyan-500 border-cyan-500' : 'border-slate-600 group-hover:border-cyan-400'}`}>
+                                <svg className={`w-3 h-3 text-white ${rememberMe ? 'block' : 'hidden'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                             </div>
                             <span className="group-hover:text-white transition-colors">Recordarme</span>
                         </label>
                         <a href="#" className="text-sm font-medium text-cyan-400 hover:text-cyan-300 transition-colors">¿Olvidaste tu contraseña?</a>
                     </div>
 
-                    <Button type="submit" className="w-full py-3 text-base shadow-lg shadow-cyan-500/20">
-                        Iniciar Sesión
+                    <Button type="submit" className="w-full py-3 text-base shadow-lg shadow-cyan-500/20" disabled={isLoading}>
+                        {isLoading ? "Iniciando sesión..." : "Iniciar Sesión"}
                     </Button>
                 </form>
 

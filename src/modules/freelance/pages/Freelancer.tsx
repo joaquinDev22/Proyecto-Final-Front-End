@@ -44,12 +44,12 @@ export default function Freelancer() {
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
-                <select className="bg-dark-bg/50 border border-white/5 rounded-xl px-4 py-2 text-sm text-white outline-none focus:border-purple-500 cursor-pointer sm:w-48">
+                <select className=" bg-dark-bg/50 border border-white/5 rounded-xl px-4 py-2 text-sm text-white outline-none focus:border-purple-500 cursor-pointer sm:w-48">
                     <option>Todos los tipos de pago</option>
                     <option>Precio Fijo</option>
                     <option>Tarifa por Hora</option>
                 </select>
-                <Button className="bg-purple-600 hover:bg-purple-500 hover:shadow-[0_0_15px_rgba(168,85,247,0.4)] whitespace-nowrap">
+                <Button className="rounded-[8px] p-2 bg-purple-600 hover:bg-purple-500 hover:shadow-[0_0_15px_rgba(168,85,247,0.4)] whitespace-nowrap">
                     Encontrar Proyectos
                 </Button>
             </div>
