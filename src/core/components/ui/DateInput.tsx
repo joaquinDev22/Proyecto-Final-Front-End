@@ -12,18 +12,18 @@ export default function DateInput() {
     );
 
     const months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre"
     ];
 
     const currentYear = new Date().getFullYear();
@@ -39,7 +39,7 @@ export default function DateInput() {
         <div className="flex gap-4 justify-center items-center w-full">
 
             <select value={day} onChange={(e) => setDay(e.target.value)} className={`${baseSelectClass} w-[100px]`}>
-                <option value="">Day</option>
+                <option value="">Día</option>
                 {days.map((day) => (
                     <option key={day} value={day}>
                         {day}
@@ -48,7 +48,7 @@ export default function DateInput() {
             </select>
 
             <select value={month} onChange={(e) => setMonth(e.target.value)} className={`${baseSelectClass} w-[180px]`}>
-                <option value="">Month</option>
+                <option value="">Mes</option>
                 {months.map((month, index) => (
                     <option
                         key={month}
@@ -60,7 +60,7 @@ export default function DateInput() {
             </select>
 
             <select value={year} onChange={(e) => setYear(e.target.value)} className={`${baseSelectClass} w-[120px]`}>
-                <option value="">Year</option>
+                <option value="">Año</option>
                 {years.map((year) => (
                     <option key={year} value={year}>
                         {year}

@@ -4,10 +4,10 @@ import Input from "../../../core/components/ui/Input";
 export default function CommonUserFields(){
     return(
        <>
-        <Input placeholder="First name" label="First Name" type="text" name="firstname"/>
-        <Input placeholder="Last name" label="Last Name" type="text" name="lastname"/>
-        <Input placeholder="email@example.com" label="Email" type="email" name="email"/>
-        <a className="text-slate-300 font-bold block mb-2 text-[0.7rem] uppercase tracking-wider">Date of birth</a>
+        <Input placeholder="Nombre" label="Nombre" type="text" name="firstname"/>
+        <Input placeholder="Apellido" label="Apellido" type="text" name="lastname"/>
+        <Input placeholder="correo@ejemplo.com" label="Correo electrónico" type="email" name="email"/>
+        <a className="text-slate-300 font-bold block mb-2 text-[0.7rem] uppercase tracking-wider">Fecha de nacimiento</a>
         <div className="p-4">
             <DateInput/>
         </div>

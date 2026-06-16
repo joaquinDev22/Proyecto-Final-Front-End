@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
 const CATEGORIES = [
-    { title: "Development & IT", count: "1,240 Jobs", icon: "💻" },
-    { title: "Design & Creative", count: "850 Jobs", icon: "🎨" },
-    { title: "Sales & Marketing", count: "620 Jobs", icon: "📈" },
-    { title: "Writing & Translation", count: "430 Jobs", icon: "✍️" },
-    { title: "Admin & Customer Support", count: "910 Jobs", icon: "🎧" },
-    { title: "Finance & Accounting", count: "250 Jobs", icon: "📊" },
+    { title: "Desarrollo y TI", count: "1,240 Empleos", icon: "💻" },
+    { title: "Diseño y Creatividad", count: "850 Empleos", icon: "🎨" },
+    { title: "Ventas y Marketing", count: "620 Empleos", icon: "📈" },
+    { title: "Escritura y Traducción", count: "430 Empleos", icon: "✍️" },
+    { title: "Administración y Atención al Cliente", count: "910 Empleos", icon: "🎧" },
+    { title: "Finanzas y Contabilidad", count: "250 Empleos", icon: "📊" },
 ];
 
 export default function FeaturedCategories() {
@@ -14,8 +14,8 @@ export default function FeaturedCategories() {
         <section className="py-20 bg-bg-base">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold text-text-main mb-4">Explore by Category</h2>
-                    <p className="text-text-muted text-lg">Find the perfect role or the ideal candidate in our top categories.</p>
+                    <h2 className="text-3xl md:text-4xl font-bold text-text-main mb-4">Explorar por Categoría</h2>
+                    <p className="text-text-muted text-lg">Encuentra el rol perfecto o el candidato ideal en nuestras categorías principales.</p>
                 </div>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -20,7 +20,7 @@ export default function EmployeeFields({
             <div className="flex flex-col mb-2 w-full">
 
                 <p className="block mb-2 text-[0.7rem] text-black font-bold">
-                    Technologies
+                    Tecnologías
                 </p>
 
                 <input
@@ -47,7 +47,7 @@ export default function EmployeeFields({
                 />
 
                 <label htmlFor="remote-only" className="m-0 font-inherit font-medium cursor-pointer text-[0.9rem]">
-                    Remote jobs only
+                    Solo trabajos remotos
                 </label>
 
             </div>

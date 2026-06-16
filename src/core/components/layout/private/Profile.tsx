@@ -23,13 +23,13 @@ export default function Profile({ userRole }: ProfileProps) {
                             {isFreelance ? "John Doe" : "Acme Corp"}
                         </h1>
                         <p className="text-slate-400 font-medium">
-                            {isFreelance ? "Senior Full-Stack Developer" : "Enterprise Tech Company"}
+                            {isFreelance ? "Desarrollador Full-Stack Senior" : "Empresa de Tecnología"}
                         </p>
                     </div>
                 </div>
                 <div className="flex gap-3">
-                    <Button variant="outline">Edit Profile</Button>
-                    <Button variant="primary">{isFreelance ? "Upload CV" : "Post a Job"}</Button>
+                    <Button variant="outline">Editar Perfil</Button>
+                    <Button variant="primary">{isFreelance ? "Subir CV" : "Publicar Empleo"}</Button>
                 </div>
             </div>
 
@@ -40,38 +40,38 @@ export default function Profile({ userRole }: ProfileProps) {
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div className="glass rounded-2xl p-6">
                             <p className="text-slate-400 text-sm font-medium mb-2">
-                                {isFreelance ? "Profile Views" : "Total Applicants"}
+                                {isFreelance ? "Vistas de Perfil" : "Total de Solicitantes"}
                             </p>
                             <h3 className="text-3xl font-bold text-white">
                                 {isFreelance ? "1,204" : "4,209"}
                             </h3>
-                            <p className="text-emerald-400 text-xs mt-2 font-medium">↑ 12% this week</p>
+                            <p className="text-emerald-400 text-xs mt-2 font-medium">↑ 12% esta semana</p>
                         </div>
                         <div className="glass rounded-2xl p-6">
                             <p className="text-slate-400 text-sm font-medium mb-2">
-                                {isFreelance ? "Active Proposals" : "Active Jobs"}
+                                {isFreelance ? "Propuestas Activas" : "Empleos Activos"}
                             </p>
                             <h3 className="text-3xl font-bold text-white">
                                 {isFreelance ? "12" : "5"}
                             </h3>
-                            <p className="text-slate-500 text-xs mt-2 font-medium">Out of {isFreelance ? "40 connects" : "15 limits"}</p>
+                            <p className="text-slate-500 text-xs mt-2 font-medium">De {isFreelance ? "40 connects" : "15 límites"}</p>
                         </div>
                         <div className="glass rounded-2xl p-6">
                             <p className="text-slate-400 text-sm font-medium mb-2">
-                                {isFreelance ? "Total Earnings" : "Total Spent"}
+                                {isFreelance ? "Ganancias Totales" : "Total Gastado"}
                             </p>
                             <h3 className="text-3xl font-bold text-white">
                                 {isFreelance ? "$12,450" : "$45,200"}
                             </h3>
-                            <p className="text-emerald-400 text-xs mt-2 font-medium">Top Rated</p>
+                            <p className="text-emerald-400 text-xs mt-2 font-medium">Mejor Valorado</p>
                         </div>
                     </div>
 
                     {/* Recent Activity */}
                     <div className="glass rounded-2xl p-8">
                         <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-xl font-bold text-white">Recent Activity</h2>
-                            <Button variant="ghost" size="sm">View all</Button>
+                            <h2 className="text-xl font-bold text-white">Actividad Reciente</h2>
+                            <Button variant="ghost" size="sm">Ver todo</Button>
                         </div>
                         
                         <div className="space-y-6">
@@ -83,10 +83,10 @@ export default function Profile({ userRole }: ProfileProps) {
                                     <div>
                                         <p className="text-white font-medium mb-1">
                                             {isFreelance 
-                                                ? "Your proposal was viewed by TechCorp" 
-                                                : "New applicant for Senior Frontend Engineer"}
+                                                ? "Tu propuesta fue vista por TechCorp" 
+                                                : "Nuevo solicitante para Ingeniero Frontend Senior"}
                                         </p>
-                                        <p className="text-slate-400 text-sm">{i * 2} hours ago</p>
+                                        <p className="text-slate-400 text-sm">hace {i * 2} horas</p>
                                     </div>
                                 </div>
                             ))}
@@ -99,7 +99,7 @@ export default function Profile({ userRole }: ProfileProps) {
                     {/* Skills/Details */}
                     <div className="glass rounded-2xl p-8">
                         <h2 className="text-xl font-bold text-white mb-6">
-                            {isFreelance ? "Top Skills" : "Company Details"}
+                            {isFreelance ? "Habilidades Principales" : "Detalles de la Empresa"}
                         </h2>
                         {isFreelance ? (
                             <div className="flex flex-wrap gap-2">
@@ -110,15 +110,15 @@ export default function Profile({ userRole }: ProfileProps) {
                         ) : (
                             <div className="space-y-4">
                                 <div>
-                                    <p className="text-slate-400 text-sm mb-1">Industry</p>
-                                    <p className="text-white font-medium">Information Technology</p>
+                                    <p className="text-slate-400 text-sm mb-1">Industria</p>
+                                    <p className="text-white font-medium">Tecnología de la Información</p>
                                 </div>
                                 <div>
-                                    <p className="text-slate-400 text-sm mb-1">Company Size</p>
-                                    <p className="text-white font-medium">500-1000 Employees</p>
+                                    <p className="text-slate-400 text-sm mb-1">Tamaño de la Empresa</p>
+                                    <p className="text-white font-medium">500-1000 Empleados</p>
                                 </div>
                                 <div>
-                                    <p className="text-slate-400 text-sm mb-1">Location</p>
+                                    <p className="text-slate-400 text-sm mb-1">Ubicación</p>
                                     <p className="text-white font-medium">San Francisco, CA</p>
                                 </div>
                             </div>
@@ -127,16 +127,16 @@ export default function Profile({ userRole }: ProfileProps) {
 
                     {/* Completion Card */}
                     <div className="glass rounded-2xl p-8 bg-gradient-to-br from-cyan-900/40 to-dark-surface border-cyan-500/20">
-                        <h2 className="text-xl font-bold text-white mb-2">Profile Completion</h2>
+                        <h2 className="text-xl font-bold text-white mb-2">Completitud del Perfil</h2>
                         <div className="flex justify-between text-sm mb-2 mt-4">
-                            <span className="text-cyan-400 font-medium">85% Complete</span>
-                            <span className="text-slate-400">15% left</span>
+                            <span className="text-cyan-400 font-medium">85% Completo</span>
+                            <span className="text-slate-400">15% restante</span>
                         </div>
                         <div className="w-full bg-dark-bg rounded-full h-2 mb-6 overflow-hidden">
                             <div className="bg-gradient-to-r from-cyan-500 to-blue-500 h-2 rounded-full" style={{ width: '85%' }}></div>
                         </div>
                         <Button variant="outline" className="w-full text-cyan-400 border-cyan-500/30 hover:bg-cyan-500/10">
-                            Complete Profile
+                            Completar Perfil
                         </Button>
                     </div>
                 </div>

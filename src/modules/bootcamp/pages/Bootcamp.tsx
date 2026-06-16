@@ -1,12 +1,19 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
 import Button from '../../../core/components/ui/Button';
 import Badge from '../../../core/components/ui/Badge';
-import { mockBootcamps } from '../../../core/data/mockData';
+import { bootcampService } from '../../../core/api/bootcampService';
+import type { Bootcamp as BootcampType } from '../../../core/data/mockData';
 
 export default function Bootcamp() {
-    const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState('');
+    const [bootcamps, setBootcamps] = useState<BootcampType[]>([]);
+
+    useEffect(() => {
+        bootcampService.getAll().then(data => {
+            setBootcamps(data);
+        }).catch(err => console.error("Error loading bootcamps", err));
+    }, []);
 
     return (
         <div className="flex-1 flex flex-col items-center justify-start pt-20 pb-20 w-full relative">
@@ -19,16 +26,16 @@ export default function Bootcamp() {
                 {/* Top Badge */}
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-10 animate-fade-in-up">
                     <span className="flex h-2 w-2 rounded-full bg-cyan-400"></span>
-                    <span className="text-sm font-medium text-cyan-400">Next cohorts starting next month</span>
+                    <span className="text-sm font-medium text-cyan-400">Próximos grupos comienzan el próximo mes</span>
                 </div>
 
                 {/* Hero Section */}
                 <div className="text-center mx-auto mb-16 w-full max-w-4xl">
                     <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight">
-                        Accelerate your <span className="text-gradient-brand">Tech Career.</span>
+                        Acelera tu <span className="text-gradient-brand">Carrera en Tecnología.</span>
                     </h1>
                     <p className="text-slate-400 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed mb-10">
-                        Join intensive, industry-focused bootcamps designed to transform you from beginner to professional in months.
+                        Únete a bootcamps intensivos enfocados en la industria, diseñados para transformarte de principiante a profesional en meses.
                     </p>
                     
                     {/* Search Bar Container */}
@@ -38,14 +45,14 @@ export default function Bootcamp() {
                                 <span className="text-xl">🔍</span>
                                 <input 
                                     type="text"
-                                    placeholder="Search 'Web Development', 'Data Science'..."
+                                    placeholder="Buscar 'Desarrollo Web', 'Data Science'..."
                                     className="w-full bg-transparent border-none text-white focus:outline-none focus:ring-0 text-base"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                 />
                             </div>
                             <Button className="w-full md:w-auto px-8 py-3 rounded-xl text-base" onClick={() => {}}>
-                                Find Bootcamp
+                                Buscar Bootcamp
                             </Button>
                         </div>
                     </div>
@@ -57,24 +64,24 @@ export default function Bootcamp() {
                         <div className="w-14 h-14 bg-cyan-500/10 text-cyan-400 rounded-2xl flex items-center justify-center text-3xl mb-6 mx-auto group-hover:scale-110 transition-transform">
                             🚀
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-3">Fast-Track Learning</h3>
-                        <p className="text-slate-400">Master in-demand skills in 12-24 weeks instead of 4 years. Intensive, hands-on curriculum.</p>
+                        <h3 className="text-xl font-bold text-white mb-3">Aprendizaje Acelerado</h3>
+                        <p className="text-slate-400">Domina habilidades en demanda en 12-24 semanas en lugar de 4 años. Currículo intensivo y práctico.</p>
                     </div>
                     
                     <div className="glass p-8 rounded-2xl text-center group border-t border-purple-500/20">
                         <div className="w-14 h-14 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center text-3xl mb-6 mx-auto group-hover:scale-110 transition-transform">
                             💼
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-3">Career Services</h3>
-                        <p className="text-slate-400">Get resume reviews, interview prep, and direct connections to hiring partners upon graduation.</p>
+                        <h3 className="text-xl font-bold text-white mb-3">Servicios de Carrera</h3>
+                        <p className="text-slate-400">Obtén revisión de CV, preparación de entrevistas y conexiones directas con empleadores al graduarte.</p>
                     </div>
 
                     <div className="glass p-8 rounded-2xl text-center group border-t border-blue-500/20">
                         <div className="w-14 h-14 bg-blue-500/10 text-blue-400 rounded-2xl flex items-center justify-center text-3xl mb-6 mx-auto group-hover:scale-110 transition-transform">
                             🛠️
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-3">Project Portfolio</h3>
-                        <p className="text-slate-400">Graduate with a complete portfolio of real-world projects to showcase your expertise to employers.</p>
+                        <h3 className="text-xl font-bold text-white mb-3">Portafolio de Proyectos</h3>
+                        <p className="text-slate-400">Gradúate con un portafolio completo de proyectos del mundo real para mostrar tu experiencia a los empleadores.</p>
                     </div>
                 </div>
 
@@ -82,14 +89,14 @@ export default function Bootcamp() {
                 <div className="w-full text-left mb-12">
                     <div className="flex justify-between items-end mb-8">
                         <div>
-                            <h2 className="text-3xl font-bold mb-2 text-white">Featured Programs</h2>
-                            <p className="text-slate-400">Top-rated bootcamps enrolling now</p>
+                            <h2 className="text-3xl font-bold mb-2 text-white">Programas Destacados</h2>
+                            <p className="text-slate-400">Bootcamps mejor calificados inscribiendo ahora</p>
                         </div>
-                        <Button variant="ghost">View all programs &rarr;</Button>
+                        <Button variant="ghost">Ver todos los programas &rarr;</Button>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {mockBootcamps.map((bootcamp) => (
+                        {bootcamps.map((bootcamp) => (
                             <div key={bootcamp.id} className="glass glass-hover p-6 rounded-2xl cursor-pointer flex flex-col group transition-all duration-300">
                                 <div className="flex justify-between items-start mb-4">
                                     <div className="flex items-center gap-4">
@@ -111,7 +118,7 @@ export default function Bootcamp() {
                                 </p>
                                 
                                 <div className="flex flex-wrap gap-2 mb-6">
-                                    {bootcamp.tags.map((tag, i) => (
+                                    {(bootcamp.tags || []).map((tag, i) => (
                                         <Badge key={i} variant="secondary">{tag}</Badge>
                                     ))}
                                 </div>

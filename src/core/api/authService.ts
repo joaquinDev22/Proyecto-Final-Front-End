@@ -6,7 +6,7 @@ export const authService = {
    * Guarda el token en localStorage si la petición es exitosa.
    */
   login: async (credentials: any) => {
-    const response = await api.post('/auth/loggin', credentials);
+    const response = await api.post('/api/v1/auth/login', credentials);
     
     // Si tu backend retorna { token: "eyJhb..." }
     if (response.data && response.data.token) {
@@ -19,7 +19,7 @@ export const authService = {
    * Registra un nuevo perfil.
    */
   register: async (userData: any) => {
-    const response = await api.post('/auth/register', userData);
+    const response = await api.post('/api/v1/auth/register', userData);
     return response.data;
   },
 

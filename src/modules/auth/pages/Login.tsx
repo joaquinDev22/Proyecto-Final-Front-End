@@ -25,13 +25,13 @@ export default function Login() {
                 </div>
                 
                 <div className="text-center mb-8">
-                    <h1 className="text-3xl font-bold mb-2 text-white tracking-tight">Welcome Back</h1>
-                    <p className="text-slate-400 text-sm">Enter your credentials to access your account.</p>
+                    <h1 className="text-3xl font-bold mb-2 text-white tracking-tight">Bienvenido de nuevo</h1>
+                    <p className="text-slate-400 text-sm">Ingresa tus credenciales para acceder a tu cuenta.</p>
                 </div>
 
                 <form className="space-y-6" onSubmit={handleLogin}>
                     <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-2 uppercase tracking-wider">Email or Username</label>
+                        <label className="block text-xs font-semibold text-slate-300 mb-2 uppercase tracking-wider">Correo o Usuario</label>
                         <input 
                             type="text" 
                             placeholder="name@example.com" 
@@ -40,7 +40,7 @@ export default function Login() {
                     </div>
 
                     <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-2 uppercase tracking-wider">Password</label>
+                        <label className="block text-xs font-semibold text-slate-300 mb-2 uppercase tracking-wider">Contraseña</label>
                         <div className="relative">
                             <input 
                                 type="password" 
@@ -48,7 +48,7 @@ export default function Login() {
                                 className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-3 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 pr-12 transition-all"
                             />
                             <button type="button" className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 font-medium hover:text-white transition-colors">
-                                Show
+                                Mostrar
                             </button>
                         </div>
                     </div>
@@ -59,19 +59,19 @@ export default function Login() {
                                 {/* Invisible checkmark, would be managed by state */}
                                 <svg className="w-3 h-3 text-cyan-400 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                             </div>
-                            <span className="group-hover:text-white transition-colors">Remember me</span>
+                            <span className="group-hover:text-white transition-colors">Recordarme</span>
                         </label>
-                        <a href="#" className="text-sm font-medium text-cyan-400 hover:text-cyan-300 transition-colors">Forgot password?</a>
+                        <a href="#" className="text-sm font-medium text-cyan-400 hover:text-cyan-300 transition-colors">¿Olvidaste tu contraseña?</a>
                     </div>
 
                     <Button type="submit" className="w-full py-3 text-base shadow-lg shadow-cyan-500/20">
-                        Log In
+                        Iniciar Sesión
                     </Button>
                 </form>
 
                 <div className="mt-8 flex items-center justify-center">
                     <div className="h-px bg-white/10 flex-1"></div>
-                    <span className="px-4 text-xs text-slate-400 font-medium uppercase tracking-wider">Or continue with</span>
+                    <span className="px-4 text-xs text-slate-400 font-medium uppercase tracking-wider">O continúa con</span>
                     <div className="h-px bg-white/10 flex-1"></div>
                 </div>
 
@@ -87,7 +87,7 @@ export default function Login() {
                 </div>
 
                 <div className="mt-8 text-center text-sm text-slate-400">
-                    Don't have an account? <Link to="/signup" className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors">Sign up</Link>
+                    ¿No tienes una cuenta? <Link to="/signup" className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors">Regístrate</Link>
                 </div>
             </div>
         </div>

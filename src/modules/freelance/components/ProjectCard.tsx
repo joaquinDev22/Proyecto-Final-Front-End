@@ -15,7 +15,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
             <div className="flex justify-between items-start gap-4">
                 <div>
                     <h3 className="font-bold text-white text-lg group-hover:text-purple-400 transition-colors mb-1">{project.title}</h3>
-                    <p className="text-slate-400 text-sm">Client: <span className="text-slate-300 font-medium">{project.client}</span></p>
+                    <p className="text-slate-400 text-sm">Cliente: <span className="text-slate-300 font-medium">{project.client}</span></p>
                 </div>
                 <div className="text-right shrink-0">
                     <div className="text-lg font-bold text-white">{project.budget}</div>
@@ -39,7 +39,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
                         <span className="text-lg">⏱️</span> {project.duration}
                     </span>
                     <span className="flex items-center gap-1">
-                        <span className="text-lg">📝</span> {project.proposals} proposals
+                        <span className="text-lg">📝</span> {project.proposals} propuestas
                     </span>
                 </div>
                 <span>{project.postedAt}</span>

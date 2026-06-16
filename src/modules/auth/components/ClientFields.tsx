@@ -7,7 +7,7 @@ import Alert from "../../../core/components/ui/Alert"
 import { useNavigate } from "react-router-dom"
 
 export default function ClientFields(){
-    const {accountType, setAccountType, createAccount, setCreateAccount} = useCreateAccount();
+    const {createAccount, setCreateAccount} = useCreateAccount();
     const Navigate = useNavigate();
     const {isRendered, showAlert, triggerAlert} = useShowAlert();
 
@@ -21,27 +21,27 @@ export default function ClientFields(){
                         <>
                             {!createAccount && (                    
                                 <div>
-                                    <h2 className="text-center text-white font-bold text-2xl mb-6">Please enter your personal information</h2>
+                                    <h2 className="text-center text-white font-bold text-2xl mb-6">Por favor ingresa tu información personal</h2>
                                     <CommonUserFields/>
-                                    <Input placeholder="Phone number" type="tel" name="phone-number" label="Phone Number"/>
-                                    <Input placeholder="Country" type="text" name="country" label="Country"/>
-                                    <Button containerName="mt-8" label="Next" variant="primary" className="w-full text-lg py-3" 
+                                    <Input placeholder="Número de teléfono" type="tel" name="phone-number" label="Número de teléfono"/>
+                                    <Input placeholder="País" type="text" name="country" label="País"/>
+                                    <Button containerName="mt-8" label="Siguiente" variant="primary" className="w-full text-lg py-3" 
                                     onClick={() => setCreateAccount(true)}/>
                                 </div>
                             )}
                             {createAccount && (
                                 <div>
-                                    <Input placeholder="Username" type="text" name="username" label="Username"/>
-                                    <Input placeholder="Password" type="password" name="password" label="Password"/>
-                                    <Input placeholder="Confirm password" type="password" name="confirm-password" label="Confirm Password"/>
-                                    <Button containerName="mt-8" label="Create Account" variant="primary" className="w-full text-lg py-3"
+                                    <Input placeholder="Nombre de usuario" type="text" name="username" label="Nombre de usuario"/>
+                                    <Input placeholder="Contraseña" type="password" name="password" label="Contraseña"/>
+                                    <Input placeholder="Confirmar contraseña" type="password" name="confirm-password" label="Confirmar Contraseña"/>
+                                    <Button containerName="mt-8" label="Crear Cuenta" variant="primary" className="w-full text-lg py-3"
                                         onClick={() => triggerAlert(()=> Navigate("/login"))}/>
                                 </div>
                             )}
                         </>
                     )}
                     {isRendered && (
-                        <Alert message="Account created successfully!" type="success" isVisible={showAlert} />
+                        <Alert message="¡Cuenta creada exitosamente!" type="success" isVisible={showAlert} />
                     )}
             </div>
        </div>

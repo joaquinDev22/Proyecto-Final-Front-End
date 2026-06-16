@@ -30,7 +30,7 @@ export default function JobCard({ job, onClick }: JobCardProps) {
                 </p>
                 
                 <div className="flex flex-wrap items-center gap-2">
-                    <Badge variant={job.type === 'Full-time' ? 'success' : 'secondary'}>{job.type}</Badge>
+                    <Badge variant={job.type === 'Tiempo Completo' ? 'success' : 'secondary'}>{job.type}</Badge>
                     <Badge variant="primary">{job.locationType}</Badge>
                     
                     {job.tags.slice(0, 3).map((tag, i) => (

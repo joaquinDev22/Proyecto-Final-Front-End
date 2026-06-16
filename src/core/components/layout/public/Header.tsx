@@ -30,7 +30,7 @@ export default function Header() {
                 
                 <nav className="hidden md:flex items-center gap-10">
                     <Link to="/freelancer" className={navLinkClass("/freelancer")}>Freelancers</Link>
-                    <Link to="/enterprise" className={navLinkClass("/enterprise")}>Enterprise</Link>
+                    <Link to="/enterprise" className={navLinkClass("/enterprise")}>Empresas</Link>
                     <Link to="/bootcamp" className={navLinkClass("/bootcamp")}>Bootcamps</Link>
                 </nav>
                 
@@ -39,10 +39,10 @@ export default function Header() {
                         className="px-4 py-2 text-sm font-medium transition-all duration-300 border border-transparent text-white active:border-white focus:border-white active:shadow-[0_0_10px_rgba(255,255,255,0.6)] focus:shadow-[0_0_10px_rgba(255,255,255,0.6)] outline-none rounded-lg cursor-pointer" 
                         onClick={() => navigate("/login")}
                     >
-                        Log in
+                        Iniciar sesión
                     </button>
                     <Button variant="primary" size="sm" onClick={() => navigate("/signup")}>
-                        Sign up
+                        Registrarse
                     </Button>
                 </div>
             </div>
