@@ -1,49 +1,83 @@
+import { useNavigate } from 'react-router-dom';
+import GlassCard from '../../../core/components/ui/GlassCard';
 import Badge from '../../../core/components/ui/Badge';
-import { type Job } from '../../../core/types/models';
+import Button from '../../../core/components/ui/Button';
 
-type JobCardProps = {
+export interface Job {
+    id: string | number;
+    title: string;
+    company: string;
+    location: string;
+    type: string; // Full-time, Part-time, etc.
+    salary?: string;
+    postedAt: string;
+    description: string;
+    tags: string[];
+    logoUrl?: string;
+}
+
+interface JobCardProps {
     job: Job;
-    onClick?: () => void;
-};
+}
 
-export default function JobCard({ job, onClick }: JobCardProps) {
+export default function JobCard({ job }: JobCardProps) {
+    const navigate = useNavigate();
+
     return (
-        <div 
-            className="glass glass-hover p-6 rounded-2xl cursor-pointer flex flex-col sm:flex-row gap-5 items-start group"
-            onClick={onClick}
-        >
-            <div className="w-14 h-14 bg-dark-bg rounded-xl flex items-center justify-center text-3xl border border-white/5 shrink-0 shadow-inner">
-                {job.logo}
+        <GlassCard padding="p-6 md:p-8" rounded="rounded-2xl" hoverEffect className="flex flex-col md:flex-row gap-6 transition-all duration-300">
+            {/* Logo */}
+            <div className="w-16 h-16 bg-white/5 rounded-xl border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
+                {job.logoUrl ? (
+                    <img src={job.logoUrl} alt={job.company} className="w-full h-full object-cover" />
+                ) : (
+                    <span className="text-2xl font-bold text-slate-400">{job.company.charAt(0)}</span>
+                )}
             </div>
-            
-            <div className="flex-1 w-full">
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 gap-2">
+
+            {/* Info */}
+            <div className="flex-1">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-3">
                     <div>
-                        <h3 className="font-bold text-white text-lg group-hover:text-cyan-400 transition-colors">{job.title}</h3>
-                        <p className="text-slate-400 text-sm font-medium">{job.company} • {job.location}</p>
+                        <h3 className="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors cursor-pointer" onClick={() => navigate(`/postulante/vacantes/${job.id}`)}>
+                            {job.title}
+                        </h3>
+                        <p className="text-slate-400 text-sm mt-1">
+                            <span className="font-medium text-slate-300">{job.company}</span> • {job.location}
+                        </p>
                     </div>
-                    <Badge variant="outline" className="shrink-0">{job.postedAt}</Badge>
+                    <div className="flex items-center gap-2">
+                        <Badge variant="success">{job.type}</Badge>
+                        <span className="text-sm text-slate-500">{job.postedAt}</span>
+                    </div>
                 </div>
-                
-                <p className="text-slate-300 text-sm mb-4 line-clamp-2 leading-relaxed">
+
+                <p className="text-slate-300 text-sm line-clamp-2 mb-4 leading-relaxed">
                     {job.description}
                 </p>
-                
-                <div className="flex flex-wrap items-center gap-2">
-                    <Badge variant={job.type === 'Tiempo Completo' ? 'success' : 'secondary'}>{job.type}</Badge>
-                    <Badge variant="primary">{job.locationType}</Badge>
-                    
-                    {job.tags.slice(0, 3).map((tag, i) => (
-                        <span key={i} className="text-xs text-slate-400 bg-white/5 px-2 py-1 rounded-md">
-                            {tag}
-                        </span>
-                    ))}
-                    
-                    <span className="text-sm font-semibold text-white ml-auto bg-dark-bg/50 px-3 py-1 rounded-lg border border-white/5">
-                        {job.salary}
-                    </span>
+
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                    <div className="flex flex-wrap gap-2">
+                        {job.tags.map((tag, idx) => (
+                            <Badge key={idx} variant="secondary">{tag}</Badge>
+                        ))}
+                    </div>
+
+                    <div className="flex items-center gap-4">
+                        {job.salary && (
+                            <span className="font-bold text-white bg-dark-bg/50 px-3 py-1 rounded-lg border border-white/5 text-sm">
+                                {job.salary}
+                            </span>
+                        )}
+                        <Button
+                            variant="primary"
+                            size="sm"
+                            onClick={() => navigate(`/postulante/vacantes/${job.id}`)}
+                        >
+                            Ver Detalles
+                        </Button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </GlassCard>
     );
 }

@@ -12,6 +12,7 @@ export interface UserProfile {
     ubicacion?: string;
     sitioWeb?: string;
     logo?: string;
+    tipoInstructor?: "PARTICULAR" | "EMPRESA";
 }
 
 export const profileService = {

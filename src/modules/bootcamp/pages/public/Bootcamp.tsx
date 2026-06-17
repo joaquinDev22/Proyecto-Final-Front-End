@@ -1,13 +1,12 @@
-import { useState, useEffect } from 'react';
-
-import Button from '../../../core/components/ui/Button';
-import Badge from '../../../core/components/ui/Badge';
-import { bootcampService } from '../../../core/api/bootcampService';
-import type { Bootcamp as BootcampType } from '../../../core/types/models';
-import Input from '../../../core/components/ui/Input';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from '../../../../core/components/ui/Button';
+import Badge from '../../../../core/components/ui/Badge';
+import { bootcampService } from '../../../../core/api/bootcampService';
+import type { Bootcamp as BootcampType } from '../../../../core/types/models';
 
 export default function Bootcamp() {
-    const [searchQuery, setSearchQuery] = useState('');
+    const navigate = useNavigate();
     const [bootcamps, setBootcamps] = useState<BootcampType[]>([]);
 
     useEffect(() => {
@@ -32,29 +31,43 @@ export default function Bootcamp() {
 
                 {/* Hero Section */}
                 <div className="text-center mx-auto mb-16 w-full max-w-4xl">
-                    <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight">
-                        Acelera tu <span className="text-gradient-brand">Carrera en Tecnología.</span>
+                    <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight text-white">
+                        Acelera tu <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">Carrera en Tecnología.</span>
                     </h1>
                     <p className="text-slate-400 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed mb-10">
-                        Únete a bootcamps intensivos enfocados en la industria, diseñados para transformarte de principiante a profesional en meses.
+                        Únete a bootcamps intensivos enfocados en la industria, diseñados para transformarte de principiante a profesional en meses. No requieres experiencia previa.
                     </p>
                     
-                    {/* Search Bar Container */}
-                    <div className="w-full max-w-2xl mx-auto relative z-10">
-                        <div className="glass rounded-2xl p-4 flex flex-col md:flex-row items-center gap-2">
-                            <div className="flex-1 flex items-center gap-3 bg-dark-bg/50 px-4 py-2 rounded-xl border border-white/5 focus-within:border-cyan-500 transition-color">
-                                <span className="text-xl">🔍</span>
-                                <Input 
-                                    type="text"
-                                    className="w-full bg-transparent border-none text-white focus:outline-none text-sm"
-                                    placeholder="Buscar 'Desarrollo Web', 'Data Science'"
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                />
+                    {/* Botones eliminados por redundancia con el final de la página */}
+                </div>
+
+                {/* Nueva Sección de Marketing (Reemplazo del Buscador) */}
+                <div className="w-full max-w-5xl mx-auto mb-20">
+                    <div className="glass p-10 rounded-3xl border-t border-cyan-500/30 flex flex-col md:flex-row items-center justify-between gap-10 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 blur-[80px]"></div>
+                        <div className="flex-1">
+                            <h2 className="text-3xl font-bold text-white mb-4">¿Por qué estudiar en WorkLink?</h2>
+                            <p className="text-slate-400 text-lg leading-relaxed mb-6">
+                                No solo te enseñamos a programar o analizar datos. Te preparamos para el mundo real. 
+                                Nuestros egresados trabajan en las mejores empresas tecnológicas del mundo gracias a nuestra 
+                                metodología enfocada 100% en proyectos reales.
+                            </p>
+                            <div className="flex gap-6">
+                                <div>
+                                    <h4 className="text-3xl font-bold text-cyan-400 mb-1">94%</h4>
+                                    <p className="text-sm text-slate-400">Tasa de Empleabilidad</p>
+                                </div>
+                                <div>
+                                    <h4 className="text-3xl font-bold text-purple-400 mb-1">+40%</h4>
+                                    <p className="text-sm text-slate-400">Aumento Salarial Promedio</p>
+                                </div>
                             </div>
-                            <Button className="w-full md:w-auto px-8 py-3 rounded-xl text-base" onClick={() => {}}>
-                                Buscar Bootcamp
-                            </Button>
+                        </div>
+                        <div className="w-full md:w-1/3 flex justify-center">
+                            <div className="w-48 h-48 rounded-full border-4 border-dashed border-cyan-500/30 flex items-center justify-center relative animate-[spin_20s_linear_infinite]">
+                                <div className="absolute inset-2 rounded-full border-4 border-purple-500/20"></div>
+                                <span className="text-6xl animate-[spin_20s_linear_infinite_reverse]">🎓</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -66,7 +79,7 @@ export default function Bootcamp() {
                             🚀
                         </div>
                         <h3 className="text-xl font-bold text-white mb-3">Aprendizaje Acelerado</h3>
-                        <p className="text-slate-400">Domina habilidades en demanda en 12-24 semanas en lugar de 4 años. Currículo intensivo y práctico.</p>
+                        <p className="text-slate-400">Domina habilidades en demanda en 12-24 semanas en lugar de 4 años. Currículo intensivo y práctico adaptado al mercado actual.</p>
                     </div>
                     
                     <div className="glass p-8 rounded-2xl text-center group border-t border-purple-500/20">
@@ -74,7 +87,7 @@ export default function Bootcamp() {
                             💼
                         </div>
                         <h3 className="text-xl font-bold text-white mb-3">Servicios de Carrera</h3>
-                        <p className="text-slate-400">Obtén revisión de CV, preparación de entrevistas y conexiones directas con empleadores al graduarte.</p>
+                        <p className="text-slate-400">Obtén revisión de CV, preparación intensiva de entrevistas y conexiones directas con empleadores aliados al graduarte.</p>
                     </div>
 
                     <div className="glass p-8 rounded-2xl text-center group border-t border-blue-500/20">
@@ -82,12 +95,12 @@ export default function Bootcamp() {
                             🛠️
                         </div>
                         <h3 className="text-xl font-bold text-white mb-3">Portafolio de Proyectos</h3>
-                        <p className="text-slate-400">Gradúate con un portafolio completo de proyectos del mundo real para mostrar tu experiencia a los empleadores.</p>
+                        <p className="text-slate-400">Gradúate con un portafolio completo de proyectos reales y complejos para demostrar tu experiencia directamente a los empleadores.</p>
                     </div>
                 </div>
 
                 {/* Featured Bootcamps */}
-                <div className="w-full text-left mb-12">
+                <div className="w-full text-left mb-24">
                     <div className="flex justify-between items-end mb-8">
                         <div>
                             <h2 className="text-3xl font-bold mb-2 text-white">Programas Destacados</h2>
@@ -139,6 +152,37 @@ export default function Bootcamp() {
                                 </div>
                             </div>
                         ))}
+                    </div>
+                </div>
+
+                {/* Final CTA / Instructor Dual */}
+                <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl">
+                    <div className="glass p-12 rounded-3xl text-center relative overflow-hidden flex flex-col items-center justify-center">
+                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 mix-blend-overlay"></div>
+                        <h2 className="text-2xl font-bold text-white mb-4 relative z-10">Conviértete en Estudiante</h2>
+                        <p className="text-slate-300 text-sm mb-8 relative z-10">
+                            Inicia tu proceso de postulación hoy. Las plazas para las próximas cohortes son limitadas.
+                        </p>
+                        <Button 
+                            className="bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-3 rounded-xl text-sm font-bold relative z-10 shadow-[0_0_15px_rgba(6,182,212,0.4)]"
+                            onClick={() => navigate('/signup?role=job_seeker')}
+                        >
+                            Comenzar Proceso de Admisión
+                        </Button>
+                    </div>
+
+                    <div className="glass p-12 rounded-3xl text-center relative overflow-hidden border-t border-purple-500/30 flex flex-col items-center justify-center">
+                        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 mix-blend-overlay"></div>
+                        <h2 className="text-2xl font-bold text-white mb-4 relative z-10">¿Eres un Experto?</h2>
+                        <p className="text-slate-300 text-sm mb-8 relative z-10">
+                            Crea y administra tus propios bootcamps, enseña a miles de estudiantes y monetiza tus conocimientos.
+                        </p>
+                        <Button 
+                            className="bg-purple-600 hover:bg-purple-500 text-white px-8 py-3 rounded-xl text-sm font-bold relative z-10 shadow-[0_0_15px_rgba(168,85,247,0.4)]"
+                            onClick={() => navigate('/signup?role=instructor')}
+                        >
+                            Crear Cuenta de Instructor
+                        </Button>
                     </div>
                 </div>
 

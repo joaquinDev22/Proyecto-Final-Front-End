@@ -1,98 +1,87 @@
-import { useNavigate } from "react-router-dom";
-import Card from "../../../core/components/ui/Card";
-import Button from "../../../core/components/ui/Button";
-import { useChooseOption } from "../hooks/useChooseOption";
-import { useSignupForm } from "../hooks/useSignupForm"
+import { useNavigate, useSearchParams } from "react-router-dom";
 import ClientFields from "../components/ClientFields";
+import Select from "../../../core/components/ui/Select";
+
 export default function Signup(){
-    const {chooseOption, setChooseOption} = useChooseOption();
-    const {formType, setFormType} = useSignupForm();
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
+    
+    // Obtenemos el rol desde la URL o usamos 'freelancer' por defecto
+    const role = searchParams.get('role') || 'freelancer';
+
+    const handleRoleChange = (newRole: string) => {
+        setSearchParams({ role: newRole });
+    };
+
+    const roleOptions = [
+        { label: 'Quiero trabajar (Freelancer)', value: 'freelancer' },
+        { label: 'Quiero contratar (Cliente)', value: 'client' },
+        { label: 'Soy Empresa / Reclutador', value: 'enterprise' },
+        { label: 'Busco empleo fijo (Postulante)', value: 'job_seeker' },
+        { label: 'Quiero enseñar (Instructor)', value: 'instructor' }
+    ];
+
     return (
-      <div className="min-h-[calc(100vh-60px)] flex items-center justify-center flex-col p-8">
-            {chooseOption === "" && (
-                <div className="w-[80%] max-w-[1200px] h-[50%] mt-0">
-                    <div className="flex w-full m-0 flex-col h-fit p-6 rounded-2xl glass items-center justify-center border-t border-white/10">
-                        <img src="/logo/logo_principal.png" alt="WorkLink Logo" className="h-16 w-auto object-contain mb-6 drop-shadow-[0_0_15px_rgba(6,182,212,0.4)]" />
-                        <h1 className="mt-2 text-center text-white font-bold text-2xl mb-8">Por favor selecciona una opción para registrarte</h1>
-                        <div className="flex w-full m-0 h-fit">                       
-                            <Card title="Freelance" 
-                                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                        Cupiditate odio laborum a perferendis nemo! Impedit corporis fuga quo nam aperiam possimus, 
-                                        odit doloribus. Et voluptatibus dolores in corrupti eius possimus!" 
-                                icon="⚡"
-                                onClick={() => setChooseOption("freelance")}
-                            />             
-                            <Card title="Empresas" 
-                                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                        Cupiditate odio laborum a perferendis nemo! Impedit corporis fuga quo nam aperiam possimus, 
-                                        odit doloribus. Et voluptatibus dolores in corrupti eius possimus!" 
-                                icon="🏢"
-                                onClick={() => setChooseOption("enterprise")}
-                            />
-                        </div>
-                    </div>
-                    <Button variant="secondary" label="Volver" containerName="fixed bottom-[60px] right-[30px] z-[1000]" onClick={() => navigate("/home")} />
+        <div className="min-h-[calc(100vh-60px)] flex items-center justify-center flex-col p-8 relative">
+            {/* Background Glows */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+            
+            <div className="w-full max-w-xl h-fit glass rounded-3xl border-t border-white/10 p-8 sm:p-12 flex flex-col items-center shadow-2xl relative z-10">
+                <img src="/logo/logo_principal.png" alt="WorkLink Logo" className="h-16 w-auto object-contain mb-6 drop-shadow-[0_0_15px_rgba(6,182,212,0.4)]" />
+                
+                <h1 className="text-white font-bold text-3xl mb-2 text-center">Crea tu cuenta</h1>
+                <p className="text-slate-400 mb-8 text-center">Únete a la red de talento más grande</p>
+
+                {/* Selector de Rol */}
+                <div className="w-full mb-8">
+                    <label className="block text-sm font-medium text-slate-300 mb-2">¿Cómo quieres usar WorkLink?</label>
+                    <Select 
+                        value={role}
+                        onChange={handleRoleChange}
+                        options={roleOptions}
+                        className="w-full"
+                    />
                 </div>
-            )}
-            {chooseOption === "freelance" && formType === null && (
-                <div className="w-[80%] max-w-[1200px] h-[50%] mt-0">
-                    <div className="flex w-full m-0 flex-col h-fit p-6 rounded-2xl glass items-center justify-center border-t border-white/10">
-                        <img src="/logo/logo_principal.png" alt="WorkLink Logo" className="h-16 w-auto object-contain mb-6 drop-shadow-[0_0_15px_rgba(6,182,212,0.4)]" />
-                        <h1 className="mt-2 text-center text-white font-bold text-2xl mb-8">¿Quién eres? (Elige una opción)</h1>
-                        <div className="flex w-full m-0 h-fit">
-                            <Card title="Freelancer" 
-                                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                Cupiditate odio laborum a perferendis nemo!" 
-                                icon="💻"
-                                onClick={() => setFormType("freelancer")}
-                            /> 
-                            <Card title="Instructor" 
-                                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                Cupiditate odio laborum a perferendis nemo!" 
-                                icon="🎓"
-                                onClick={() => setFormType("instructor")}
-                            /> 
-                            <Card title="Cliente" 
-                                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                Cupiditate odio laborum a perferendis nemo!" 
-                                icon="🤝"
-                                onClick={() => setFormType("client")}
-                            />    
+
+                {/* Renderizado dinámico del formulario según el rol */}
+                <div className="w-full border-t border-white/5 pt-8">
+                    {role === 'client' && <ClientFields />}
+                    
+                    {role === 'freelancer' && (
+                        <div className="text-center text-slate-400 py-12 border border-dashed border-white/10 rounded-xl bg-white/5">
+                            Formulario de Freelancer próximamente
                         </div>
-                    </div>
-                    <Button variant="secondary" label="Volver" containerName="fixed bottom-[60px] right-[30px] z-[1000]" onClick={() => setChooseOption("")} />
+                    )}
+
+                    {role === 'enterprise' && (
+                        <div className="text-center text-slate-400 py-12 border border-dashed border-white/10 rounded-xl bg-white/5">
+                            Formulario de Empresa próximamente
+                        </div>
+                    )}
+
+                    {role === 'job_seeker' && (
+                        <div className="text-center text-slate-400 py-12 border border-dashed border-white/10 rounded-xl bg-white/5">
+                            Formulario de Postulante próximamente
+                        </div>
+                    )}
+
+                    {role === 'instructor' && (
+                        <div className="text-center text-slate-400 py-12 border border-dashed border-white/10 rounded-xl bg-white/5">
+                            Formulario de Instructor próximamente
+                        </div>
+                    )}
                 </div>
-            )}
-            {chooseOption === "enterprise" && formType === null && (
-                <div className="w-[80%] max-w-[1200px] h-[50%] mt-0">
-                    <div className="flex w-full m-0 flex-col h-fit p-6 rounded-2xl glass items-center justify-center border-t border-white/10">
-                        <img src="/logo/logo_principal.png" alt="WorkLink Logo" className="h-16 w-auto object-contain mb-6 drop-shadow-[0_0_15px_rgba(6,182,212,0.4)]" />
-                        <h1 className="mt-2 text-center text-white font-bold text-2xl mb-8">¿Quién eres? (Elige una opción)</h1>
-                        <div className="flex w-full m-0 h-fit">
-                            <Card title="Reclutador" 
-                                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                Cupiditate odio laborum a perferendis nemo!" 
-                                icon="🔍"
-                                onClick={() => setFormType("recruiter")}
-                            /> 
-                            <Card title="Buscador de Empleo" 
-                                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                Cupiditate odio laborum a perferendis nemo!" 
-                                icon="📄"
-                                onClick={() => setFormType("job_seeker")}
-                            />    
-                        </div>
-                    </div>
-                    <Button variant="secondary" label="Volver" containerName="fixed bottom-[60px] right-[30px] z-[1000]" onClick={() => navigate("/home")} />
-                </div>                  
-            )}
-            {formType === "freelancer" && (
-                <>
-                    <ClientFields/>
-                    <Button variant="secondary" label="Volver" containerName="fixed bottom-[60px] right-[30px] z-[1000]" onClick={() => setFormType(null)} />
-                </>
-            )}
-      </div>  
+
+                {/* Botón de volver */}
+                <div className="mt-8 text-center">
+                    <button 
+                        onClick={() => navigate('/home')}
+                        className="text-slate-400 hover:text-white transition-colors text-sm underline underline-offset-4"
+                    >
+                        Volver al inicio
+                    </button>
+                </div>
+            </div>
+        </div>  
     );
 }     

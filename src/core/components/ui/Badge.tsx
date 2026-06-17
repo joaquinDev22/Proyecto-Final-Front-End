@@ -2,7 +2,7 @@ import React from 'react';
 
 type BadgeProps = {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'outline';
+  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'outline' | 'info';
   className?: string;
 };
 
@@ -15,7 +15,8 @@ export default function Badge({ children, variant = 'primary', className = '' }:
     success: "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
     warning: "bg-amber-500/10 text-amber-400 border border-amber-500/20",
     danger: "bg-red-500/10 text-red-400 border border-red-500/20",
-    outline: "bg-transparent text-slate-300 border border-slate-600"
+    outline: "bg-transparent text-slate-300 border border-slate-600",
+    info: "bg-blue-500/10 text-blue-400 border border-blue-500/20"
   };
 
   return (

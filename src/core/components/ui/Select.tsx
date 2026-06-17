@@ -44,7 +44,7 @@ export default function Select({ value, onChange, options, placeholder, classNam
             {/* Select Trigger */}
             <Button
                 type="button"
-                className="w-full bg-dark-bg/50 border border-white/10 rounded-xl px-4 py-2 text-sm text-left text-white outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/50 transition-all flex items-center justify-between shadow-sm hover:border-white/20 h-[42px]"
+                className="w-full bg-dark-bg/50 border border-white/10 rounded-[8px] px-4 py-2 text-sm text-left text-white outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/50 transition-all flex items-center justify-between shadow-sm hover:border-white/20 h-[42px]"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <span className={selectedOption ? "text-white" : "text-slate-400"}>

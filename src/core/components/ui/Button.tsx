@@ -29,7 +29,7 @@ export default function Button({
     const variants = {
         primary: "bg-cyan-500 text-white hover:bg-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)]",
         secondary: "bg-slate-800 text-white hover:bg-slate-700 border border-slate-700",
-        outline: "bg-transparent text-cyan-400 border border-cyan-500 hover:bg-cyan-500/10",
+        outline: "bg-transparent text-cyan-400 border border-cyan-500",
         ghost: "bg-transparent text-slate-300 hover:text-white hover:bg-white/5",
         danger: "bg-red-500/10 text-red-500 hover:bg-red-500/20"
     };
