@@ -13,17 +13,30 @@ export default function MisProyectosCliente() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // TODO: Fetch data from backend API
         const fetchProjects = async () => {
             try {
-                // const response = await fetch('/api/cliente/proyectos');
-                // const data = await response.json();
-                // setProjects(data);
-
-                // Fallback / Empty state
-                setProjects([]);
+                const { freelanceService } = await import('../../../../../core/api/freelanceService');
+                const data = await freelanceService.getMyPublishedProjects();
+                
+                // Map the backend data to the frontend structure
+                const mapped = data.map((p: any) => ({
+                    id: p.proyectoId,
+                    title: p.area || p.descripcion.substring(0, 30) + '...',
+                    status: p.estado || "BUSCANDO_TALENTO",
+                    budget: p.presupuestoMax ? `$${p.presupuestoMax}` : 'A convenir',
+                    postedAt: p.fechaPublicacion || "Reciente",
+                    proposals: 0, // Mock for now
+                    freelancer: p.nombreFreelancer || "No asignado",
+                    progress: p.estado === "EN_PROGRESO" ? 45 : 0,
+                    nextMilestone: "Entrega inicial",
+                    completedAt: p.estado === "FINALIZADO" ? "Hoy" : undefined,
+                    paid: false
+                }));
+                
+                setProjects(mapped);
             } catch (error) {
                 console.error("Error fetching projects:", error);
+                setProjects([]);
             } finally {
                 setIsLoading(false);
             }

@@ -10,17 +10,17 @@ export default function ProyectosEnCurso() {
         const fetchProjects = async () => {
             try {
                 const { freelanceService } = await import('../../../../../core/api/freelanceService');
-                const data = await freelanceService.getAll();
+                const data = await freelanceService.getMyAssignedProjects();
                 
                 if (data && data.length > 0) {
-                    const mapped = data.slice(0, 3).map((p, idx) => ({
-                        id: p.id,
-                        title: p.title,
-                        clientName: p.client,
-                        status: idx === 0 ? "Revisión" : "En Progreso",
-                        color: idx === 0 ? "purple" : "cyan",
-                        progress: idx === 0 ? 90 : 45,
-                        deadline: "Próxima semana"
+                    const mapped = data.map((p: any, idx: number) => ({
+                        id: p.proyectoId,
+                        title: p.area || p.descripcion.substring(0, 30) + '...',
+                        clientName: p.nombreCliente || 'Cliente Desconocido',
+                        status: p.estado || "En Progreso",
+                        color: idx % 2 === 0 ? "purple" : "cyan",
+                        progress: p.estado === "FINALIZADO" ? 100 : 45,
+                        deadline: p.fechaPublicacion || "Próxima semana"
                     }));
                     setActiveProjects(mapped);
                 } else {

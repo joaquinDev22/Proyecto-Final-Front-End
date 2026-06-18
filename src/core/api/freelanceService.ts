@@ -39,5 +39,15 @@ export const freelanceService = {
   create: async (data: any) => {
     const response = await api.post('/api/v1/freelance/proyectos/me', data);
     return response.data;
+  },
+  
+  getMyPublishedProjects: async () => {
+    const response = await api.get('/api/v1/freelance/proyectos/me/publicados');
+    return response.data;
+  },
+
+  getMyAssignedProjects: async () => {
+    const response = await api.get('/api/v1/freelance/proyectos/me/asignados');
+    return response.data;
   }
 };
