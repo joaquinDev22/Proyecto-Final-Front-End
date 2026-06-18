@@ -3,25 +3,23 @@ import { useParams, useNavigate } from 'react-router-dom';
 import GlassCard from '../../../../core/components/ui/GlassCard';
 import Badge from '../../../../core/components/ui/Badge';
 import Button from '../../../../core/components/ui/Button';
+import { bootcampService } from '../../../../core/api/bootcampService';
+import type { Bootcamp } from '../../../../core/types/models';
 
 export default function DetalleBootcamp() {
     const { id } = useParams();
     const navigate = useNavigate();
     
-    // TODO: Define proper types centrally
-    const [bootcamp, setBootcamp] = useState<any>(null);
+    const [bootcamp, setBootcamp] = useState<Bootcamp | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // TODO: Fetch data from backend API
         const fetchBootcamp = async () => {
             try {
-                // const response = await fetch(`/api/bootcamps/${id}`);
-                // const data = await response.json();
-                // setBootcamp(data);
-
-                // Fallback / Empty state
-                setBootcamp(null);
+                if (id) {
+                    const data = await bootcampService.getById(Number(id));
+                    setBootcamp(data);
+                }
             } catch (error) {
                 console.error("Error fetching bootcamp details:", error);
             } finally {

@@ -20,8 +20,22 @@ export default function Login() {
         setError("");
         setIsLoading(true);
         try {
-            await login({ usuario, password });
-            navigate('/profile');
+            const profile = await login({ usuario, password });
+            
+            let isIncomplete = false;
+            if (profile) {
+                if (profile.rol === 'ENTERPRISE' || profile.rol === 'RECRUITER' || profile.rol === 'EMPRESA') {
+                    isIncomplete = !profile.nombre || profile.nombre === "" || !profile.descripcion || profile.descripcion === "";
+                } else {
+                    isIncomplete = !profile.nombre || profile.nombre === "" || !profile.apellido || profile.apellido === "";
+                }
+            }
+
+            if (isIncomplete) {
+                navigate('/onboarding');
+            } else {
+                navigate('/profile');
+            }
         } catch (err: any) {
             setError(err.response?.data?.mensaje || "Error al iniciar sesión. Verifica tus credenciales.");
         } finally {

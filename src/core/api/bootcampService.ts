@@ -31,8 +31,20 @@ export const bootcampService = {
     const response = await api.get(`/api/v1/bootcamps/${id}`);
     return mapBootcamp(response.data);
   },
-  apply: async (bootcampId: number, employeeId: number) => {
-    const response = await api.post(`/api/v1/inscripciones/${bootcampId}/empleados/${employeeId}`);
+  apply: async (bootcampId: number) => {
+    const response = await api.post(`/api/v1/inscripciones/me/${bootcampId}`);
     return response.data;
+  },
+  getMyEnrollments: async () => {
+    const response = await api.get('/api/v1/inscripciones/me');
+    return response.data.map((inscripcion: any) => mapBootcamp(inscripcion.bootcamp));
+  },
+  create: async (data: any) => {
+    const response = await api.post('/api/v1/bootcamps/me', data);
+    return response.data;
+  },
+  getMyBootcampsCreated: async (): Promise<Bootcamp[]> => {
+    const response = await api.get('/api/v1/bootcamps/me');
+    return response.data.map(mapBootcamp);
   }
 };

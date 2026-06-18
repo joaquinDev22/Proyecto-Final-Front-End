@@ -34,15 +34,19 @@ const mapJob = (dto: any): Job => ({
 
 export const jobService = {
   getAll: async (): Promise<Job[]> => {
-    const response = await api.get('/api/vacantes');
+    const response = await api.get('/api/v1/vacantes');
     return response.data.map(mapJob);
   },
   getById: async (id: number): Promise<Job> => {
-    const response = await api.get(`/api/vacantes/${id}`);
+    const response = await api.get(`/api/v1/vacantes/${id}`);
     return mapJob(response.data);
   },
   apply: async (id: number, data: any) => {
-    const response = await api.post(`/api/vacantes/${id}/postulaciones`, data);
+    const response = await api.post(`/api/v1/vacantes/${id}/postulaciones/me`, data);
+    return response.data;
+  },
+  create: async (data: any) => {
+    const response = await api.post('/api/v1/vacantes/me', data);
     return response.data;
   }
 };

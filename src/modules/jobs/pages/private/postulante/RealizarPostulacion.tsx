@@ -12,12 +12,20 @@ export default function RealizarPostulacion() {
     const navigate = useNavigate();
     const { isRendered, showAlert, triggerAlert } = useShowAlert();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Here you would upload the CV and cover letter to backend
-        triggerAlert(() => {
-            navigate('/postulante/postulaciones');
-        });
+        const formData = new FormData(e.currentTarget);
+        
+        try {
+            const { jobService } = await import('../../../../../core/api/jobService');
+            await jobService.apply(Number(id), formData);
+            triggerAlert(() => {
+                navigate('/postulante/postulaciones');
+            });
+        } catch (error) {
+            console.error("Error al postularse:", error);
+            window.alert("Error al enviar la postulación. Verifica que el CV sea PDF.");
+        }
     };
 
     return (
@@ -40,17 +48,20 @@ export default function RealizarPostulacion() {
 
                         <div>
                             <label className="text-slate-300 font-bold block mb-2 text-sm">Curriculum Vitae (CV)</label>
-                            <div className="border-2 border-dashed border-white/20 rounded-xl p-8 text-center hover:border-cyan-500/50 transition-colors bg-white/5 cursor-pointer flex flex-col items-center">
+                            <div className="relative border-2 border-dashed border-white/20 rounded-xl p-8 text-center hover:border-cyan-500/50 transition-colors bg-white/5 cursor-pointer flex flex-col items-center">
+                                <input type="file" name="cv" accept=".pdf" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                                 <FileText className="w-10 h-10 text-slate-400 mb-3" />
                                 <p className="text-white font-medium mb-1">Haz clic para subir un nuevo CV o arrástralo aquí</p>
-                                <p className="text-slate-400 text-xs">Se usará tu CV guardado en el perfil por defecto. (PDF, DOCX max 5MB)</p>
+                                <p className="text-slate-400 text-xs">Se usará tu CV guardado en el perfil por defecto. (PDF max 5MB)</p>
                             </div>
                         </div>
 
                         <div>
-                            <label className="text-slate-300 font-bold block mb-2 text-sm">Carta de Presentación (Opcional)</label>
+                            <label className="text-slate-300 font-bold block mb-2 text-sm">Carta de Presentación (Mensaje)</label>
                             <textarea
+                                name="mensaje"
                                 rows={5}
+                                required
                                 placeholder="Escribe un mensaje breve destacando por qué eres el candidato ideal..."
                                 className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 resize-none transition-all"
                             ></textarea>

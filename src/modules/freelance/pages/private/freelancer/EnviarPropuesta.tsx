@@ -11,12 +11,23 @@ export default function EnviarPropuesta() {
     const navigate = useNavigate();
     const { isRendered, showAlert, triggerAlert } = useShowAlert();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Here you would send the proposal data to your backend
-        triggerAlert(() => {
-            navigate('/freelance/buscar-proyecto'); // o a una página de "Mis Propuestas"
-        });
+        const formData = new FormData(e.currentTarget);
+        const payload = {
+            descripcion: formData.get('descripcion') as string,
+            costo: parseFloat(formData.get('costo') as string)
+        };
+        try {
+            const { freelanceService } = await import('../../../../../core/api/freelanceService');
+            await freelanceService.apply(Number(id), payload);
+            triggerAlert(() => {
+                navigate('/freelance/buscar-proyecto');
+            });
+        } catch (error) {
+            console.error("Error al enviar propuesta:", error);
+            window.alert("Hubo un error al enviar la propuesta.");
+        }
     };
 
     return (
@@ -40,6 +51,7 @@ export default function EnviarPropuesta() {
                         <div>
                             <label className="text-slate-300 font-bold block mb-2 text-sm">¿Cómo abordarás este proyecto?</label>
                             <textarea
+                                name="descripcion"
                                 rows={6}
                                 required
                                 placeholder="Describe tu enfoque paso a paso, por qué eres el candidato ideal y qué valor agregado aportarás..."
@@ -64,6 +76,7 @@ export default function EnviarPropuesta() {
                                 <div className="relative">
                                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
                                     <Input
+                                        name="costo"
                                         placeholder="1500"
                                         type="number"
                                         min="1"

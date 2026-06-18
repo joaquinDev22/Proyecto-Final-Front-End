@@ -26,12 +26,28 @@ export default function Vacantes() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // TODO: Fetch data from backend API
         const fetchJobs = async () => {
             try {
-                // const response = await fetch('/api/vacantes');
-                // const data = await response.json();
-                setJobs([]);
+                const { jobService } = await import('../../../../../core/api/jobService');
+                const data = await jobService.getAll();
+                
+                // Aplicar filtros locales si es necesario
+                let filtered = data;
+                if (search) {
+                    filtered = filtered.filter(j => 
+                        j.title?.toLowerCase().includes(search.toLowerCase()) || 
+                        j.company?.toLowerCase().includes(search.toLowerCase()) ||
+                        j.tags?.some(tag => tag.toLowerCase().includes(search.toLowerCase()))
+                    );
+                }
+                if (jornada !== "all") {
+                    filtered = filtered.filter(j => j.type.toLowerCase().includes(jornada.replace('-', ' ')));
+                }
+                if (modalidad !== "all") {
+                    filtered = filtered.filter(j => j.locationType.toLowerCase() === modalidad);
+                }
+                
+                setJobs(filtered);
             } catch (error) {
                 console.error("Error fetching jobs:", error);
             } finally {
@@ -40,7 +56,7 @@ export default function Vacantes() {
         };
 
         fetchJobs();
-    }, []);
+    }, [search, jornada, modalidad]);
 
     return (
         <div className="w-full max-w-7xl mx-auto px-6 py-8">

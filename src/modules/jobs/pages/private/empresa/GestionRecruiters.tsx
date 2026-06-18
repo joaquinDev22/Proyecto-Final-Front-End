@@ -13,7 +13,7 @@ export default function GestionRecruiters() {
     const [isLoading, setIsLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
-    const { isRendered, showAlert, triggerAlert } = useShowAlert();
+    const { showAlert, triggerAlert } = useShowAlert();
 
     useEffect(() => {
         // TODO: Fetch data from backend API

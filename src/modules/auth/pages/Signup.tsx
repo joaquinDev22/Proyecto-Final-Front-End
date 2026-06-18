@@ -1,24 +1,82 @@
+import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import ClientFields from "../components/ClientFields";
 import Select from "../../../core/components/ui/Select";
+import Input from "../../../core/components/ui/Input";
+import Button from "../../../core/components/ui/Button";
+import Alert from "../../../core/components/ui/Alert";
+import useShowAlert from "../../../core/hooks/useShowAlert";
+import { authService } from "../../../core/api/authService";
 
 export default function Signup(){
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     
-    // Obtenemos el rol desde la URL o usamos 'freelancer' por defecto
-    const role = searchParams.get('role') || 'freelancer';
+    // Map URL role params to valid backend roles
+    const getRoleFromParam = (param: string | null) => {
+        if (!param) return 'FREELANCER';
+        const p = param.toUpperCase();
+        if (p === 'JOB_SEEKER') return 'POSTULANTE';
+        if (p === 'ENTERPRISE') return 'EMPRESA';
+        if (p === 'CLIENT') return 'CLIENTE';
+        return p; // INSTRUCTOR or FREELANCER
+    };
+    const role = getRoleFromParam(searchParams.get('role'));
+
+    const [formData, setFormData] = useState({
+        usuario: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+    });
+    const [errorMsg, setErrorMsg] = useState("");
+    const { isRendered, showAlert, triggerAlert } = useShowAlert();
 
     const handleRoleChange = (newRole: string) => {
         setSearchParams({ role: newRole });
     };
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleRegister = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setErrorMsg("");
+
+        if (!formData.usuario || !formData.email || !formData.password || !formData.confirmPassword) {
+            setErrorMsg("Todos los campos son requeridos.");
+            return;
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+            setErrorMsg("Las contraseñas no coinciden.");
+            return;
+        }
+
+        try {
+            await authService.register({
+                usuario: formData.usuario,
+                email: formData.email,
+                password: formData.password,
+                rol: role
+            });
+            
+            // Mostrar alerta de éxito y redirigir
+            triggerAlert(() => navigate('/login'));
+        } catch (error: any) {
+            setErrorMsg(error.response?.data?.message || "Error al crear la cuenta. Intenta de nuevo.");
+        }
+    };
+
     const roleOptions = [
-        { label: 'Quiero trabajar (Freelancer)', value: 'freelancer' },
-        { label: 'Quiero contratar (Cliente)', value: 'client' },
-        { label: 'Soy Empresa / Reclutador', value: 'enterprise' },
-        { label: 'Busco empleo fijo (Postulante)', value: 'job_seeker' },
-        { label: 'Quiero enseñar (Instructor)', value: 'instructor' }
+        { label: 'Quiero trabajar (Freelancer)', value: 'FREELANCER' },
+        { label: 'Quiero contratar (Cliente)', value: 'CLIENTE' },
+        { label: 'Soy Empresa / Reclutador', value: 'EMPRESA' },
+        { label: 'Busco empleo fijo (Postulante)', value: 'POSTULANTE' },
+        { label: 'Quiero enseñar (Instructor)', value: 'INSTRUCTOR' }
     ];
 
     return (
@@ -32,51 +90,40 @@ export default function Signup(){
                 <h1 className="text-white font-bold text-3xl mb-2 text-center">Crea tu cuenta</h1>
                 <p className="text-slate-400 mb-8 text-center">Únete a la red de talento más grande</p>
 
-                {/* Selector de Rol */}
-                <div className="w-full mb-8">
-                    <label className="block text-sm font-medium text-slate-300 mb-2">¿Cómo quieres usar WorkLink?</label>
-                    <Select 
-                        value={role}
-                        onChange={handleRoleChange}
-                        options={roleOptions}
-                        className="w-full"
-                    />
-                </div>
+                {errorMsg && <Alert message={errorMsg} type="error" isVisible={true} />}
+                
+                {isRendered && (
+                    <div className="w-full mb-4">
+                        <Alert message="¡Cuenta creada exitosamente! Redirigiendo..." type="success" isVisible={showAlert} />
+                    </div>
+                )}
 
-                {/* Renderizado dinámico del formulario según el rol */}
-                <div className="w-full border-t border-white/5 pt-8">
-                    {role === 'client' && <ClientFields />}
-                    
-                    {role === 'freelancer' && (
-                        <div className="text-center text-slate-400 py-12 border border-dashed border-white/10 rounded-xl bg-white/5">
-                            Formulario de Freelancer próximamente
-                        </div>
-                    )}
+                <form onSubmit={handleRegister} className="w-full flex flex-col gap-4">
+                    <div className="w-full mb-4">
+                        <label className="block text-sm font-medium text-slate-300 mb-2">¿Cómo quieres usar WorkLink?</label>
+                        <Select 
+                            value={role}
+                            onChange={handleRoleChange}
+                            options={roleOptions}
+                            className="w-full"
+                        />
+                    </div>
 
-                    {role === 'enterprise' && (
-                        <div className="text-center text-slate-400 py-12 border border-dashed border-white/10 rounded-xl bg-white/5">
-                            Formulario de Empresa próximamente
-                        </div>
-                    )}
+                    <Input placeholder="Nombre de usuario" type="text" name="usuario" value={formData.usuario} onChange={handleChange} />
+                    <Input placeholder="Correo electrónico" type="email" name="email" value={formData.email} onChange={handleChange} />
+                    <Input placeholder="Contraseña" type="password" name="password" value={formData.password} onChange={handleChange} />
+                    <Input placeholder="Confirmar contraseña" type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
 
-                    {role === 'job_seeker' && (
-                        <div className="text-center text-slate-400 py-12 border border-dashed border-white/10 rounded-xl bg-white/5">
-                            Formulario de Postulante próximamente
-                        </div>
-                    )}
+                    <Button containerName="mt-6" label="Registrar cuenta" variant="primary" className="w-full text-lg py-3" type="submit" />
+                </form>
 
-                    {role === 'instructor' && (
-                        <div className="text-center text-slate-400 py-12 border border-dashed border-white/10 rounded-xl bg-white/5">
-                            Formulario de Instructor próximamente
-                        </div>
-                    )}
-                </div>
-
-                {/* Botón de volver */}
-                <div className="mt-8 text-center">
+                <div className="mt-8 text-center flex flex-col gap-3">
+                    <p className="text-slate-400 text-sm">
+                        ¿Ya tienes una cuenta? <button onClick={() => navigate('/login')} className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors">Inicia Sesión</button>
+                    </p>
                     <button 
                         onClick={() => navigate('/home')}
-                        className="text-slate-400 hover:text-white transition-colors text-sm underline underline-offset-4"
+                        className="text-slate-500 hover:text-white transition-colors text-sm underline underline-offset-4"
                     >
                         Volver al inicio
                     </button>

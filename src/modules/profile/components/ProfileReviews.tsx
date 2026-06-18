@@ -34,16 +34,21 @@ export default function ProfileReviews({ averageRating, totalReviews, reviews }:
                 </div>
                 
                 <div className="flex-1 space-y-2">
-                    {/* Just a decorative mock of progress bars for 5,4,3,2,1 stars */}
-                    {[5, 4, 3].map(star => (
-                        <div key={star} className="flex items-center gap-2 text-sm">
-                            <span className="text-slate-400 w-3">{star}</span>
-                            <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                            <div className="flex-1 bg-white/5 h-2 rounded-full overflow-hidden">
-                                <div className="bg-amber-400 h-full" style={{width: `${star === 5 ? 80 : star === 4 ? 15 : 5}%`}}></div>
+                    {/* Progress bars for 5,4,3,2,1 stars */}
+                    {[5, 4, 3, 2, 1].map(star => {
+                        const mockWidth = star === 5 ? 80 : star === 4 ? 15 : star === 3 ? 5 : 0;
+                        const width = totalReviews === 0 ? 0 : mockWidth;
+                        
+                        return (
+                            <div key={star} className="flex items-center gap-2 text-sm">
+                                <span className="text-slate-400 w-3">{star}</span>
+                                <Star className={`w-4 h-4 ${totalReviews > 0 ? 'fill-amber-400 text-amber-400' : 'text-slate-600'}`} />
+                                <div className="flex-1 bg-white/5 h-2 rounded-full overflow-hidden">
+                                    <div className="bg-amber-400 h-full transition-all" style={{width: `${width}%`}}></div>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
 

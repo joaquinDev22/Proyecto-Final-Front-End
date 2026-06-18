@@ -30,12 +30,11 @@ export default function BuscarProyectos() {
     ];
 
     useEffect(() => {
-        // TODO: Fetch data from backend API
         const fetchProjects = async () => {
             try {
-                // const response = await fetch('/api/freelance/proyectos');
-                // const data = await response.json();
-                setProjects([]);
+                const { freelanceService } = await import('../../../../../core/api/freelanceService');
+                const data = await freelanceService.getAll();
+                setProjects(data);
             } catch (error) {
                 console.error("Error fetching projects:", error);
             } finally {
@@ -48,11 +47,11 @@ export default function BuscarProyectos() {
 
     const filteredProjects = projects.filter(p => {
         const matchesSearch = p.title?.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                              p.clientName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                              p.client?.toLowerCase().includes(searchQuery.toLowerCase()) ||
                               p.skills?.some((s: string) => s.toLowerCase().includes(searchQuery.toLowerCase()));
         
-        const matchesCategory = categoria === "" || p.category === categoria;
-        const matchesBudget = presupuesto === "" || p.budgetType === presupuesto;
+        const matchesCategory = categoria === "" || true; // TODO: map category logic
+        const matchesBudget = presupuesto === "" || true; // TODO: map budget logic
 
         return matchesSearch && matchesCategory && matchesBudget;
     });
@@ -109,11 +108,11 @@ export default function BuscarProyectos() {
                                 <DashboardProjectCard
                                     key={project.id}
                                     title={project.title}
-                                    clientName={project.clientName}
+                                    clientName={project.client}
                                     budget={project.budget}
                                     description={project.description}
                                     skills={project.skills}
-                                    postedTime={project.postedTime}
+                                    postedTime={project.postedAt}
                                     onApply={() => navigate(`/freelance/buscar-proyecto/${project.id}/propuesta`)}
                                     onViewDetails={() => navigate(`/freelance/buscar-proyecto/${project.id}`)}
                                 />

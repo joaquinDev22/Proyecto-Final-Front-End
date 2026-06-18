@@ -36,6 +36,9 @@ export interface Bootcamp {
     description: string;
     tags: string[];
     rating: number;
+    reviews?: number;
+    hours?: number;
+    level?: string;
 }
 
 export interface JobCategory {

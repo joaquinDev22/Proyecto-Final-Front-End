@@ -7,6 +7,7 @@ interface Option {
 }
 
 interface SelectProps {
+    name?: string;
     value?: string | number;
     onChange?: (value: string) => void;
     options: Option[];
@@ -14,11 +15,18 @@ interface SelectProps {
     className?: string;
 }
 
-export default function Select({ value, onChange, options, placeholder, className}: SelectProps) {
+export default function Select({ name, value, onChange, options, placeholder, className}: SelectProps) {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const [internalValue, setInternalValue] = useState(value || '');
 
-    const selectedOption = options.find(opt => opt.value.toString() === value?.toString());
+    useEffect(() => {
+        if (value !== undefined) {
+            setInternalValue(value);
+        }
+    }, [value]);
+
+    const selectedOption = options.find(opt => opt.value.toString() === internalValue?.toString());
 
     // Close when clicking outside
     useEffect(() => {
@@ -33,6 +41,9 @@ export default function Select({ value, onChange, options, placeholder, classNam
     }, []);
 
     const handleSelect = (optionValue: string | number) => {
+        if (value === undefined) {
+            setInternalValue(optionValue);
+        }
         if (onChange) {
             onChange(optionValue.toString());
         }
@@ -41,6 +52,7 @@ export default function Select({ value, onChange, options, placeholder, classNam
 
     return (
         <div className={`relative ${className}`} ref={dropdownRef}>
+            {name && <input type="hidden" name={name} value={internalValue} />}
             {/* Select Trigger */}
             <Button
                 type="button"

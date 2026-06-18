@@ -2,31 +2,37 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../../../../core/components/ui/Button";
 import Badge from "../../../../core/components/ui/Badge";
+import { bootcampService } from "../../../../core/api/bootcampService";
+import type { Bootcamp } from "../../../../core/types/models";
 
 export default function Bootcamps() {
     const navigate = useNavigate();
     const location = useLocation();
     
-    // TODO: Define proper types centrally
     const [myBootcamps, setMyBootcamps] = useState<any[]>([]);
-    const [availableBootcamps, setAvailableBootcamps] = useState<any[]>([]);
+    const [availableBootcamps, setAvailableBootcamps] = useState<Bootcamp[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // TODO: Fetch data from backend API
         const fetchBootcamps = async () => {
             try {
-                // const myResponse = await fetch('/api/bootcamps/mis-bootcamps');
-                // const myData = await myResponse.json();
-                // setMyBootcamps(myData);
-
-                // const availableResponse = await fetch('/api/bootcamps/disponibles');
-                // const availableData = await availableResponse.json();
-                // setAvailableBootcamps(availableData);
-
-                // Fallback / Empty state
-                setMyBootcamps([]);
-                setAvailableBootcamps([]);
+                // Fetch de la API
+                const bootcamps = await bootcampService.getAll();
+                setAvailableBootcamps(bootcamps);
+                
+                try {
+                    const myEnrolled = await bootcampService.getMyEnrollments();
+                    // Agregar propiedad progress para UI
+                    const myEnrolledWithProgress = myEnrolled.map((b: any) => ({
+                        ...b,
+                        progress: Math.floor(Math.random() * 100), // mock progress
+                        nextClass: "Mañana a las 18:00hs" // mock next class
+                    }));
+                    setMyBootcamps(myEnrolledWithProgress);
+                } catch (e) {
+                    console.error("Error al obtener mis inscripciones (puede que el usuario no sea empleado/freelancer)", e);
+                    setMyBootcamps([]);
+                }
             } catch (error) {
                 console.error("Error fetching bootcamps:", error);
             } finally {
@@ -64,8 +70,8 @@ export default function Bootcamps() {
                             <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 blur-[50px] group-hover:bg-cyan-500/20 transition-colors"></div>
 
                             <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 flex items-center justify-center flex-shrink-0 overflow-hidden">
-                                {bootcamp.thumbnail ? (
-                                    <img src={bootcamp.thumbnail} alt={bootcamp.title} className="w-full h-full object-cover" />
+                                {bootcamp.logo ? (
+                                    <span className="text-4xl">{bootcamp.logo}</span>
                                 ) : (
                                     <span className="text-3xl">⚛️</span>
                                 )}
@@ -73,7 +79,7 @@ export default function Bootcamps() {
 
                             <div className="flex-1 z-10 flex flex-col justify-center">
                                 <h3 className="text-xl font-bold text-white mb-1">{bootcamp.title}</h3>
-                                <p className="text-slate-400 text-sm mb-4">Instructor: {bootcamp.instructor}</p>
+                                <p className="text-slate-400 text-sm mb-4">Instructor: {bootcamp.provider}</p>
 
                                 <div className="flex items-center gap-4 mb-2 text-sm">
                                     <span className="text-cyan-400 font-bold">{bootcamp.progress}%</span>
@@ -112,8 +118,8 @@ export default function Bootcamps() {
 
                             {/* Image Header */}
                             <div className="h-40 w-full bg-slate-800 relative">
-                                {bootcamp.thumbnail ? (
-                                    <img src={bootcamp.thumbnail} alt={bootcamp.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+                                {bootcamp.logo ? (
+                                    <div className="w-full h-full flex items-center justify-center text-6xl">{bootcamp.logo}</div>
                                 ) : (
                                     <div className="w-full h-full bg-gradient-to-br from-purple-500/20 to-pink-500/20"></div>
                                 )}
@@ -127,7 +133,7 @@ export default function Bootcamps() {
 
                             <div className="p-6 flex flex-col flex-1">
                                 <h3 className="text-lg font-bold text-white mb-1 group-hover:text-purple-400 transition-colors">{bootcamp.title}</h3>
-                                <p className="text-slate-400 text-sm mb-4">Por {bootcamp.instructor} • {bootcamp.duration}</p>
+                                <p className="text-slate-400 text-sm mb-4">Por {bootcamp.provider} • {bootcamp.duration}</p>
 
                                 <div className="flex gap-2 mb-6 mt-auto">
                                     {bootcamp.tags?.map((tag: string, idx: number) => (

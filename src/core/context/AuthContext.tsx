@@ -7,7 +7,7 @@ interface AuthContextType {
     isAuthenticated: boolean;
     user: UserProfile | null;
     loading: boolean;
-    login: (credentials: any) => Promise<void>;
+    login: (credentials: any) => Promise<any>;
     logout: () => void;
 }
 
@@ -48,8 +48,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         try {
             const profile = await profileService.getProfile();
             setUser(profile);
+            return profile;
         } catch (error) {
             console.error("Error cargando perfil tras login", error);
+            return null;
         }
     };
 

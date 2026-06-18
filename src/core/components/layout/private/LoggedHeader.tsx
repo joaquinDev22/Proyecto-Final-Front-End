@@ -22,6 +22,7 @@ export default function LoggedHeader() {
 
     const getHomePath = (rol?: string) => {
         switch (rol) {
+            case 'EMPLOYEE':
             case 'FREELANCER': return '/freelance/buscar-proyecto';
             case 'POSTULANTE': return '/postulante/vacantes'; // Ruta sugerida
             case 'CLIENTE': return '/cliente/dashboard';
@@ -48,7 +49,7 @@ export default function LoggedHeader() {
                         Work<span className="text-cyan-400">Link</span>
                     </span>
                 </Link>
-                {user?.rol === 'FREELANCER' && (
+                {(user?.rol === 'FREELANCER' || user?.rol === 'EMPLOYEE') && (
                     <nav className="hidden md:flex items-center gap-10">
                         <Link to="/freelance/buscar-proyecto" className={navLinkClass("/freelance/buscar-proyecto")}>Buscar Proyecto</Link>
                         <Link to="/freelance/proyectos-en-curso" className={navLinkClass("/freelance/proyectos-en-curso")}>Proyectos en curso</Link>

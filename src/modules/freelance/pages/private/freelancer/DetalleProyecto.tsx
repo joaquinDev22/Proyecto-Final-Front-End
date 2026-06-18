@@ -15,15 +15,14 @@ export default function DetalleProyecto() {
     useEffect(() => {
         // TODO: Fetch data from backend API
         const fetchProject = async () => {
+            if (!id) return;
             try {
-                // const response = await fetch(`/api/freelance/proyectos/${id}`);
-                // const data = await response.json();
-                // setProject(data);
-                
-                // Fallback / Empty state
-                setProject(null);
+                const { freelanceService } = await import('../../../../../core/api/freelanceService');
+                const data = await freelanceService.getById(Number(id));
+                setProject(data);
             } catch (error) {
                 console.error("Error fetching project details:", error);
+                setProject(null);
             } finally {
                 setIsLoading(false);
             }
@@ -76,7 +75,7 @@ export default function DetalleProyecto() {
 
                     <div className="flex-1">
                         <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{project.title}</h1>
-                        <p className="text-xl text-purple-400 font-medium mb-4">{project.clientName}</p>
+                        <p className="text-xl text-purple-400 font-medium mb-4">{project.client}</p>
 
                         <div className="flex flex-wrap items-center gap-4 text-slate-300 text-sm mb-6">
                             <span className="flex items-center gap-1">💰 {project.budget}</span>

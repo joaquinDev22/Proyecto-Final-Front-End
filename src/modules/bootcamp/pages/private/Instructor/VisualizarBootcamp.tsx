@@ -7,23 +7,19 @@ import Button from "../../../../../core/components/ui/Button";
 export default function VisualizarBootcamp() {
     const navigate = useNavigate();
     
-    // TODO: Define proper types centrally
     const [bootcamps, setBootcamps] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
 
     useEffect(() => {
-        // TODO: Fetch data from backend API
         const fetchBootcamps = async () => {
             try {
-                // const response = await fetch(`/api/instructor/bootcamps`);
-                // const data = await response.json();
-                // setBootcamps(data);
-
-                // Fallback / Empty state
-                setBootcamps([]);
+                const { bootcampService } = await import('../../../../../core/api/bootcampService');
+                const data = await bootcampService.getMyBootcampsCreated();
+                setBootcamps(data);
             } catch (error) {
                 console.error("Error fetching bootcamps:", error);
+                setBootcamps([]);
             } finally {
                 setIsLoading(false);
             }

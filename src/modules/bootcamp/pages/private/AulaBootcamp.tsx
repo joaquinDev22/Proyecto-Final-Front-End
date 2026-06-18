@@ -116,7 +116,6 @@ export default function AulaBootcamp() {
                     </GlassCard>
                 </div>
 
-                {/* Temario y Progreso */}
                 <div className="lg:col-span-1">
                     <GlassCard>
                         <div className="flex items-center justify-between mb-6">
@@ -126,6 +125,18 @@ export default function AulaBootcamp() {
                         <div className="w-full bg-white/5 h-2 rounded-full overflow-hidden mb-6">
                             <div className="bg-cyan-400 h-full drop-shadow-[0_0_5px_rgba(34,211,238,0.6)]" style={{ width: `${aula.progress || 0}%` }}></div>
                         </div>
+
+                        {(aula.progress === 100 || true) && (
+                            <div className="mb-6 flex justify-center">
+                                <Button 
+                                    variant="outline" 
+                                    className="w-full border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-white"
+                                    onClick={() => navigate(`${window.location.pathname.replace('/aula', '')}/resena`)}
+                                >
+                                    ⭐ Dejar una Opinión
+                                </Button>
+                            </div>
+                        )}
 
                         <div className="flex flex-col gap-4 relative before:absolute before:inset-y-0 before:left-[11px] before:w-[2px] before:bg-white/10">
                             {aula.modules && aula.modules.map((mod: any, idx: number) => (

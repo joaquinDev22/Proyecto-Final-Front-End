@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../../../core/context/AuthContext";
+import { profileService, type UserProfile } from "../../../core/api/profileService";
 
 // Profile Components
 import ProfileHeader from "../components/ProfileHeader";
@@ -12,39 +13,45 @@ import ProfileCompanyInfo from "../components/ProfileCompanyInfo";
 
 export default function ProfilePage() {
     const { user } = useAuth();
-    
-    // TODO: Define proper types centrally
-    const [profileData, setProfileData] = useState<any>(null);
+
+    const [profileData, setProfileData] = useState<UserProfile | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        // TODO: Fetch profile data from backend API
-        const fetchProfile = async () => {
-            try {
-                // const response = await fetch('/api/profile/me');
-                // const data = await response.json();
-                // setProfileData(data);
-                
-                // Fallback for empty state while integrating
-                setProfileData({
-                    name: user ? `${user.nombre} ${user.apellido}` : "Usuario",
-                    title: user?.rol === 'FREELANCER' ? "Freelancer" :
-                        user?.rol === 'ENTERPRISE' ? "Empresa" : "Perfil",
-                    location: "Ubicación no especificada",
-                    about: "Sin descripción.",
-                    skills: [],
-                    portfolio: [],
-                    reviews: []
-                });
-            } catch (error) {
-                console.error("Error fetching profile:", error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
+    const fetchProfile = useCallback(async () => {
+        try {
+            setIsLoading(true);
+            const data = await profileService.getProfile();
+            setProfileData(data);
+        } catch (error) {
+            console.error("Error fetching profile:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
 
+    useEffect(() => {
         fetchProfile();
-    }, [user]);
+    }, [fetchProfile]);
+
+    const handleUploadFoto = async (file: File) => {
+        try {
+            await profileService.uploadFoto(file);
+            await fetchProfile(); // recargar
+        } catch (error) {
+            console.error("Error al subir foto", error);
+            alert("Hubo un error al subir la foto.");
+        }
+    };
+
+    const handleUploadBanner = async (file: File) => {
+        try {
+            await profileService.uploadBanner(file);
+            await fetchProfile(); // recargar
+        } catch (error) {
+            console.error("Error al subir banner", error);
+            alert("Hubo un error al subir el banner.");
+        }
+    };
 
     if (isLoading) {
         return (
@@ -56,40 +63,75 @@ export default function ProfilePage() {
 
     if (!profileData) {
         return (
-             <div className="w-full max-w-5xl mx-auto px-6 py-10">
-                 <div className="glass p-12 text-center rounded-3xl mt-8">
+            <div className="w-full max-w-5xl mx-auto px-6 py-10">
+                <div className="glass p-12 text-center rounded-3xl mt-8">
                     <p className="text-slate-400 text-lg">No se pudo cargar el perfil.</p>
                 </div>
             </div>
         );
     }
 
+    const getTitleByRole = (rol: string) => {
+        switch (rol) {
+            case 'FREELANCER':
+            case 'EMPLOYEE': return "Freelancer";
+            case 'ENTERPRISE': return "Empresa";
+            case 'CLIENTE': return "Cliente";
+            case 'INSTRUCTOR': return "Instructor";
+            case 'POSTULANTE': return "Postulante";
+            case 'RECRUITER': return "Reclutador";
+            default: return "Perfil";
+        }
+    };
+    const title = getTitleByRole(profileData.rol || "");
+
+    const nameToDisplay = profileData.nombre ? `${profileData.nombre} ${profileData.apellido || ''}` : "Usuario";
+
     return (
         <div className="w-full max-w-5xl mx-auto px-6 py-10 animate-fade-in-up">
 
             {/* Header: Siempre visible para todos */}
             <ProfileHeader
-                name={profileData.name}
-                title={profileData.title}
-                location={profileData.location}
+                name={nameToDisplay}
+                title={title}
+                location={profileData.ubicacion || profileData.pais || ""}
+                avatarUrl={profileData.fotoPerfil}
+                bannerUrl={profileData.bannerPerfil}
+                onUploadFoto={handleUploadFoto}
+                onUploadBanner={handleUploadBanner}
             />
+
+            <div className="flex justify-end mt-4">
+                <button
+                    onClick={() => window.location.href = '/onboarding'}
+                    className="px-6 py-2 bg-cyan-500/20 text-cyan-400 border border-cyan-500/50 rounded-full font-semibold hover:bg-cyan-500 hover:text-white transition-all shadow-[0_0_15px_rgba(6,182,212,0.3)] hover:shadow-[0_0_25px_rgba(6,182,212,0.6)]"
+                >
+                    Editar Perfil Completo
+                </button>
+            </div>
 
             <div className="flex flex-col gap-2 mt-6">
 
                 {/* ---------------- FREELANCER ---------------- */}
-                {user?.rol === 'FREELANCER' && (
+                {(user?.rol === 'FREELANCER' || user?.rol === 'EMPLOYEE') && (
                     <>
-                        <ProfileAbout description={profileData.about} />
-                        <ProfileSkills skills={profileData.skills} />
-                        <ProfilePortfolio items={profileData.portfolio} />
-                        <ProfileReviews averageRating={0} totalReviews={0} reviews={profileData.reviews} />
+                        <ProfileAbout description={profileData.descripcion || "Sin descripción."} />
+                        <ProfileSkills
+                            skills={profileData.habilidades || []}
+                            onRefreshProfile={fetchProfile}
+                        />
+                        <ProfilePortfolio
+                            items={profileData.proyectos || []}
+                            onRefreshProfile={fetchProfile}
+                        />
+                        <ProfileReviews averageRating={0} totalReviews={0} reviews={[]} />
                     </>
                 )}
 
                 {/* ---------------- CLIENTE ---------------- */}
                 {user?.rol === 'CLIENTE' && (
                     <>
-                        <ProfileAbout description={profileData.about || "Buscando el mejor talento tecnológico."} />
+                        <ProfileAbout description={profileData.descripcion || "Buscando el mejor talento tecnológico."} />
                     </>
                 )}
 
@@ -97,28 +139,38 @@ export default function ProfilePage() {
                 {user?.rol === 'ENTERPRISE' && (
                     <>
                         <ProfileCompanyInfo
-                            website={profileData.website || "https://www.mi-empresa.com"}
-                            employeeCount={profileData.employeeCount || "No especificado"}
+                            website={profileData.sitioWeb || "No especificado"}
+                            employeeCount={"No especificado"}
                         />
-                        <ProfileAbout title="Sobre la Empresa" description={profileData.about} />
+                        <ProfileAbout title="Sobre la Empresa" description={profileData.descripcion || "Sin descripción."} />
                     </>
                 )}
 
                 {/* ---------------- POSTULANTE (JOBSEEKER) ---------------- */}
                 {user?.rol === 'POSTULANTE' && (
                     <>
-                        <ProfileAbout description={profileData.about} />
-                        <ProfileResume lastUpdated="Recientemente" resumeUrl={profileData.resumeUrl || "#"} />
-                        <ProfileSkills skills={profileData.skills} />
+                        <ProfileAbout description={profileData.descripcion || "Sin descripción."} />
+                        <ProfileResume lastUpdated="Recientemente" resumeUrl={"#"} />
+                        <ProfileSkills
+                            skills={profileData.habilidades || []}
+                            onRefreshProfile={fetchProfile}
+                        />
+                        <ProfilePortfolio
+                            items={profileData.proyectos || []}
+                            onRefreshProfile={fetchProfile}
+                        />
                     </>
                 )}
 
                 {/* ---------------- INSTRUCTOR ---------------- */}
                 {user?.rol === 'INSTRUCTOR' && (
                     <>
-                        <ProfileAbout description={profileData.about} />
-                        <ProfileSkills skills={profileData.skills} />
-                        <ProfileReviews averageRating={0} totalReviews={0} reviews={profileData.reviews} />
+                        <ProfileAbout description={profileData.descripcion || "Sin descripción."} />
+                        <ProfileSkills
+                            skills={profileData.habilidades || []}
+                            onRefreshProfile={fetchProfile}
+                        />
+                        <ProfileReviews averageRating={0} totalReviews={0} reviews={[]} />
                     </>
                 )}
 
@@ -126,7 +178,7 @@ export default function ProfilePage() {
                 {user?.rol === 'RECRUITER' && (
                     <>
                         <ProfileCompanyInfo />
-                        <ProfileAbout title="Acerca del Recruiter" description={profileData.about} />
+                        <ProfileAbout title="Acerca del Recruiter" description={profileData.descripcion || "Sin descripción."} />
                     </>
                 )}
 

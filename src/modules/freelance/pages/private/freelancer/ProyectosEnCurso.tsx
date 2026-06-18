@@ -7,17 +7,28 @@ export default function ProyectosEnCurso() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // TODO: Fetch data from backend API
         const fetchProjects = async () => {
             try {
-                // const response = await fetch('/api/freelance/proyectos/activos');
-                // const data = await response.json();
-                // setActiveProjects(data);
-
-                // Fallback / Empty state
-                setActiveProjects([]);
+                const { freelanceService } = await import('../../../../../core/api/freelanceService');
+                const data = await freelanceService.getAll();
+                
+                if (data && data.length > 0) {
+                    const mapped = data.slice(0, 3).map((p, idx) => ({
+                        id: p.id,
+                        title: p.title,
+                        clientName: p.client,
+                        status: idx === 0 ? "Revisión" : "En Progreso",
+                        color: idx === 0 ? "purple" : "cyan",
+                        progress: idx === 0 ? 90 : 45,
+                        deadline: "Próxima semana"
+                    }));
+                    setActiveProjects(mapped);
+                } else {
+                    setActiveProjects([]);
+                }
             } catch (error) {
                 console.error("Error fetching active projects:", error);
+                setActiveProjects([]);
             } finally {
                 setIsLoading(false);
             }

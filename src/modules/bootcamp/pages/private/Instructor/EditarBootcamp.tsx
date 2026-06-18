@@ -21,16 +21,22 @@ export default function EditarBootcamp() {
         // TODO: Fetch data from backend API
         const fetchBootcampData = async () => {
             try {
-                // const response = await fetch(`/api/instructor/bootcamps/${id}`);
-                // const data = await response.json();
-                // setTitle(data.title);
-                // setModulos(data.modulos);
-
-                // Fallback / Empty state for testing
-                setTitle("Bootcamp no encontrado");
-                setModulos([]);
+                const { bootcampService } = await import('../../../../../core/api/bootcampService');
+                const data = await bootcampService.getById(Number(id));
+                setTitle(data.title);
+                
+                // Simulate modules since backend doesn't support them yet
+                setModulos([{
+                    id: 1, 
+                    title: "Introducción", 
+                    date: "Por definir", 
+                    link: "", 
+                    material: data.description
+                }]);
             } catch (error) {
                 console.error("Error fetching bootcamp data:", error);
+                setTitle("Bootcamp no encontrado");
+                setModulos([]);
             } finally {
                 setIsLoading(false);
             }

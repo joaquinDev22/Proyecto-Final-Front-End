@@ -34,11 +34,29 @@ export default function CrearBootcamp() {
         setModulos(modulos.map(m => m.id === id ? { ...m, [field]: value } : m));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        triggerAlert(() => {
-            navigate('/instructor/bootcamps');
-        });
+        try {
+            const payload = {
+                titulo: formData.title,
+                descripcion: formData.description,
+                precio: formData.price,
+                inicio: new Date(Date.now() + 86400000).toISOString().split('T')[0], // tomorrow
+                fin: new Date(Date.now() + 86400000 * 30).toISOString().split('T')[0], // +30 days
+                modalidad: "VIRTUAL",
+                tipo: "PARTICULAR",
+                cupos: 50,
+                logo: "💻",
+                etiquetas: [formData.specialty]
+            };
+            await import('../../../../../core/api/bootcampService').then(m => m.bootcampService.create(payload));
+            triggerAlert(() => {
+                navigate('/instructor/bootcamps');
+            });
+        } catch (error) {
+            console.error("Error al crear bootcamp:", error);
+            window.alert("Error al crear el bootcamp. Revisa la consola.");
+        }
     };
 
     const handlePreview = () => {
@@ -75,7 +93,7 @@ export default function CrearBootcamp() {
                                 )}
                             </div>
                         </div>
-                        <Button className="bg-cyan-600 opacity-50 cursor-not-allowed">Inscribirme (Deshabilitado)</Button>
+                        <Button className="bg-cyan-600 opacity-50 cursor-not-allowed rounded-[8px] p-2">Inscribirme (Deshabilitado)</Button>
                     </div>
 
                     <div className="mb-8">
@@ -100,8 +118,11 @@ export default function CrearBootcamp() {
 
                 <div className="flex justify-end gap-4">
                     <Button variant="outline" onClick={() => setIsPreviewing(false)}>Seguir Editando</Button>
-                    <Button className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold" onClick={handleSubmit}>Confirmar y Publicar</Button>
+                    <Button className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-[8px] p-2" onClick={handleSubmit}>Confirmar y Publicar</Button>
                 </div>
+                {isRendered && (
+                    <Alert message="¡Bootcamp creado exitosamente! Redirigiendo a tu panel..." type="success" isVisible={showAlert} />
+                )}
             </div>
         );
     }

@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./modules/home/pages/public/Home";
 import Login from "./modules/auth/pages/Login";
 import Signup from "./modules/auth/pages/Signup";
+import Onboarding from "./modules/auth/pages/Onboarding";
 import FreelancerLanding from "./modules/freelance/pages/public/FreelancerLanding";
 import EnterpriseLanding from "./modules/jobs/pages/public/EnterpriseLanding";
 import Bootcamp from "./modules/bootcamp/pages/public/Bootcamp";
@@ -25,6 +26,7 @@ import EnviarPropuesta from "./modules/freelance/pages/private/freelancer/Enviar
 import DetalleBootcamp from "./modules/bootcamp/pages/private/DetalleBootcamp";
 import AulaBootcamp from "./modules/bootcamp/pages/private/AulaBootcamp";
 import PagoBootcamp from "./modules/bootcamp/pages/private/PagoBootcamp";
+import DejarResenaBootcamp from "./modules/bootcamp/pages/private/DejarResenaBootcamp";
 import RetirarFondos from "./modules/freelance/pages/private/freelancer/RetirarFondos";
 import DashboardCliente from "./modules/freelance/pages/private/cliente/DashboardCliente";
 import MisProyectosCliente from "./modules/freelance/pages/private/cliente/MisProyectosCliente";
@@ -68,6 +70,7 @@ export default function App() {
 
         {/* GRUPO DE RUTAS PRIVADAS (Usan el LoggedHeader) */}
         <Route element={<PrivateLayout />}>
+          <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/profile" element={<ProfilePage />} />
 
           {/* Dashboard Freelance */}
@@ -79,6 +82,7 @@ export default function App() {
           <Route path="/freelance/bootcamps/:id" element={<DetalleBootcamp />} />
           <Route path="/freelance/bootcamps/:id/pago" element={<PagoBootcamp />} />
           <Route path="/freelance/bootcamps/:id/aula" element={<AulaBootcamp />} />
+          <Route path="/freelance/bootcamps/:id/resena" element={<DejarResenaBootcamp />} />
           <Route path="/freelance/cobros" element={<Cobros />} />
           <Route path="/freelance/retirar-fondos" element={<RetirarFondos />} />
           <Route path="/postulante/vacantes" element={<Vacantes />} />
@@ -89,6 +93,7 @@ export default function App() {
           <Route path="/postulante/bootcamps/:id" element={<DetalleBootcamp />} />
           <Route path="/postulante/bootcamps/:id/pago" element={<PagoBootcamp />} />
           <Route path="/postulante/bootcamps/:id/aula" element={<AulaBootcamp />} />
+          <Route path="/postulante/bootcamps/:id/resena" element={<DejarResenaBootcamp />} />
 
           {/* Dashboard Cliente */}
           <Route path="/cliente/dashboard" element={<DashboardCliente />} />

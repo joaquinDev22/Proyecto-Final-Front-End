@@ -14,15 +14,15 @@ export default function DetalleVacante() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // TODO: Fetch data from backend API using `id`
         const fetchJob = async () => {
+            if (!id) return;
             try {
-                // const response = await fetch(`/api/vacantes/${id}`);
-                // const data = await response.json();
-                // setJob(data);
-                setJob(null); // Simulating empty state for backend integration
+                const { jobService } = await import('../../../../../core/api/jobService');
+                const data = await jobService.getById(Number(id));
+                setJob(data);
             } catch (error) {
                 console.error("Error fetching job details:", error);
+                setJob(null);
             } finally {
                 setIsLoading(false);
             }

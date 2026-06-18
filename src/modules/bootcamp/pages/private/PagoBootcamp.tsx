@@ -15,11 +15,19 @@ export default function PagoBootcamp() {
     // Determinar la ruta base para volver correctamente
     const basePath = location.pathname.split(`/${id}/pago`)[0];
 
-    const handlePayment = (e: React.FormEvent) => {
+    const handlePayment = async (e: React.FormEvent) => {
         e.preventDefault();
-        triggerAlert(() => {
-            navigate(`${basePath}/${id}/aula`);
-        });
+        try {
+            if (id) {
+                await import('../../../../core/api/bootcampService').then(m => m.bootcampService.apply(Number(id)));
+            }
+            triggerAlert(() => {
+                navigate(`${basePath}/${id}/aula`);
+            });
+        } catch (error) {
+            console.error("Error al inscribirse:", error);
+            window.alert("Hubo un error al procesar la inscripción.");
+        }
     };
 
     return (

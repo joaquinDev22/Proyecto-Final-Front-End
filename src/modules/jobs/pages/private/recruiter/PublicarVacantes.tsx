@@ -25,11 +25,29 @@ export default function PublicarVacante() {
         maxSalary: ""
     });
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        triggerAlert(() => {
-            navigate('/recruiter/dashboard');
-        });
+        
+        const payload = {
+            puesto: formData.title,
+            descripcion: formData.description,
+            tipoUbicacion: formData.type || "Remoto",
+            tipoVacante: formData.workday || "Tiempo Completo",
+            salario: formData.minSalary && formData.maxSalary ? `${formData.minSalary} - ${formData.maxSalary}` : (formData.minSalary || formData.maxSalary || ""),
+            etiquetas: formData.requirements ? formData.requirements.split(',').map(r => r.trim()) : [],
+            ubicacion: "No especificada" // Added as fallback
+        };
+
+        try {
+            const { jobService } = await import('../../../../../core/api/jobService');
+            await jobService.create(payload);
+            triggerAlert(() => {
+                navigate('/recruiter/dashboard');
+            });
+        } catch (error) {
+            console.error("Error al publicar vacante:", error);
+            window.alert("Hubo un error al publicar la vacante.");
+        }
     };
 
     const handlePreview = () => {

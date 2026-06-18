@@ -51,7 +51,7 @@ export default function RetirarFondos() {
                                 <h3 className="text-white font-bold text-lg">Saldo Disponible</h3>
                                 <p className="text-slate-400 text-sm">Este es el dinero listo para transferir.</p>
                             </div>
-                            <span className="text-4xl font-black text-cyan-400">$2,450.00</span>
+                            <span className="text-4xl font-black text-cyan-400">$0.00</span>
                         </div>
                         
                         <div className="mt-6">
@@ -60,9 +60,8 @@ export default function RetirarFondos() {
                                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
                                 <Input 
                                     type="number" 
-                                    placeholder="2450.00" 
+                                    placeholder="0.00" 
                                     required
-                                    max="2450"
                                     min="1"
                                     className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-lg outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all pl-8"
                                 />

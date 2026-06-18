@@ -11,11 +11,37 @@ export default function PublicarProyecto() {
     const navigate = useNavigate();
     const { isRendered, showAlert, triggerAlert } = useShowAlert();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        triggerAlert(() => {
-            navigate('/cliente/mis-proyectos');
-        });
+        const formData = new FormData(e.currentTarget);
+        
+        // Parse budget string "500 - 1000"
+        const budgetStr = formData.get('presupuesto') as string || '';
+        const budgetParts = budgetStr.split('-').map(p => parseFloat(p.replace(/[^0-9.]/g, '')));
+        const min = budgetParts[0] || 0;
+        const max = budgetParts.length > 1 ? budgetParts[1] : min;
+
+        const payload = {
+            clienteId: 0, // Bypass DTO validation, backend '/me' endpoint will override this with the authenticated user's ID
+            area: formData.get('categoria') || "Desarrollo Web",
+            descripcion: formData.get('descripcion'),
+            presupuestoMin: min,
+            presupuestoMax: max,
+            duracion: formData.get('duracion'),
+            tipoPago: "Fijo", // Por defecto
+            habilidades: (formData.get('habilidades') as string)?.split(',').map(s => s.trim()) || []
+        };
+
+        try {
+            const { freelanceService } = await import('../../../../../core/api/freelanceService');
+            await freelanceService.create(payload);
+            triggerAlert(() => {
+                navigate('/cliente/mis-proyectos');
+            });
+        } catch (error) {
+            console.error("Error al publicar proyecto:", error);
+            window.alert("Error al publicar el proyecto.");
+        }
     };
 
     return (
@@ -41,6 +67,7 @@ export default function PublicarProyecto() {
                         <div>
                             <label className="text-slate-300 font-bold block mb-2 text-sm">Descripción Detallada</label>
                             <textarea 
+                                name="descripcion"
                                 rows={6}
                                 required
                                 placeholder="Describe el alcance, los objetivos y qué esperas del freelancer..."
@@ -52,19 +79,19 @@ export default function PublicarProyecto() {
                             <div>
                                 <label className="text-slate-300 font-bold block mb-2 text-sm">Categoría principal</label>
                                 <Select 
+                                    name="categoria"
                                     options={[
                                         { label: "Seleccione una categoría", value: "" },
                                         { label: "Desarrollo Web", value: "web" },
                                         { label: "App Móvil", value: "mobile" },
                                         { label: "Diseño UX/UI", value: "design" }
                                     ]}
-                                    value=""
-                                    onChange={() => {}}
                                 />
                             </div>
                             <div>
                                 <label className="text-slate-300 font-bold block mb-2 text-sm">Habilidades requeridas</label>
                                 <Input 
+                                    name="habilidades"
                                     placeholder="Ej: React, Node.js, Figma..." 
                                     type="text" 
                                     required
@@ -79,6 +106,7 @@ export default function PublicarProyecto() {
                                 <div className="relative">
                                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
                                     <Input 
+                                        name="presupuesto"
                                         placeholder="Ej: 500 - 1000" 
                                         type="text" 
                                         required
@@ -89,6 +117,7 @@ export default function PublicarProyecto() {
                             <div>
                                 <label className="text-slate-300 font-bold block mb-2 text-sm">Duración Esperada</label>
                                 <Input 
+                                    name="duracion"
                                     placeholder="Ej: 2 semanas" 
                                     type="text" 
                                     required
