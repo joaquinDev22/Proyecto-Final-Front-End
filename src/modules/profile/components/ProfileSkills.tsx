@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { X, Plus, Trash2 } from "lucide-react";
+import { X, Plus } from "lucide-react";
 import Badge from "../../../core/components/ui/Badge";
 import Button from "../../../core/components/ui/Button";
 import Select from "../../../core/components/ui/Select";

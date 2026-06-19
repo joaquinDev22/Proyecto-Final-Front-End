@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Image, X, Plus } from "lucide-react";
+import { Image, X } from "lucide-react";
 import Button from "../../../core/components/ui/Button";
 import { profileService, type Proyecto } from "../../../core/api/profileService";
 

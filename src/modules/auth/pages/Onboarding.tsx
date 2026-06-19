@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../core/context/AuthContext";
 import { profileService, type UserProfile } from "../../../core/api/profileService";
 import Input from "../../../core/components/ui/Input";
@@ -9,7 +8,6 @@ import useShowAlert from "../../../core/hooks/useShowAlert";
 
 export default function Onboarding() {
     const { user } = useAuth();
-    const navigate = useNavigate();
     const { isRendered, showAlert, triggerAlert } = useShowAlert();
     const [errorMsg, setErrorMsg] = useState("");
 
