@@ -35,7 +35,8 @@ export default function PublicarVacante() {
             tipoVacante: formData.workday || "Tiempo Completo",
             salario: formData.minSalary && formData.maxSalary ? `${formData.minSalary} - ${formData.maxSalary}` : (formData.minSalary || formData.maxSalary || ""),
             etiquetas: formData.requirements ? formData.requirements.split(',').map(r => r.trim()) : [],
-            ubicacion: "No especificada" // Added as fallback
+            ubicacion: "No especificada", // Added as fallback
+            finalizacion: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] // default to 30 days from now
         };
 
         try {
@@ -99,7 +100,7 @@ export default function PublicarVacante() {
                                 )}
                             </div>
                         </div>
-                        <Button className="bg-cyan-600 opacity-50 cursor-not-allowed">Postularme (Deshabilitado)</Button>
+                        <Button className="bg-cyan-600 border-0 rounded-[8px] p-2 opacity-50 cursor-not-allowed">Postularme (Deshabilitado)</Button>
                     </div>
 
                     <div className="mb-8">
@@ -125,7 +126,7 @@ export default function PublicarVacante() {
 
                 <div className="flex justify-end gap-4">
                     <Button variant="outline" onClick={() => setIsPreviewing(false)}>Seguir Editando</Button>
-                    <Button className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold" onClick={handleSubmit}>Confirmar y Publicar</Button>
+                    <Button className="bg-cyan-600  border-0 rounded-[8px] p-2 hover:bg-cyan-500 text-white font-bold" onClick={handleSubmit}>Confirmar y Publicar</Button>
                 </div>
             </div>
         );
