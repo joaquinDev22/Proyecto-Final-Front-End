@@ -75,7 +75,8 @@ export default function ProfilePage() {
         switch (rol) {
             case 'FREELANCER':
             case 'EMPLOYEE': return "Freelancer";
-            case 'ENTERPRISE': return "Empresa";
+            case 'ENTERPRISE':
+            case 'EMPRESA': return "Empresa";
             case 'CLIENTE': return "Cliente";
             case 'INSTRUCTOR': return "Instructor";
             case 'POSTULANTE': return "Postulante";
@@ -136,7 +137,7 @@ export default function ProfilePage() {
                 )}
 
                 {/* ---------------- ENTERPRISE (EMPRESA) ---------------- */}
-                {user?.rol === 'ENTERPRISE' && (
+                {(user?.rol === 'ENTERPRISE' || user?.rol === 'EMPRESA') && (
                     <>
                         <ProfileCompanyInfo
                             website={profileData.sitioWeb || "No especificado"}

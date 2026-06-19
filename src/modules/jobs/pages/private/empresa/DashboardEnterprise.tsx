@@ -1,11 +1,38 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Users, GraduationCap } from "lucide-react";
+import { Users, GraduationCap, Loader2 } from "lucide-react";
 import PageHeader from "../../../../../core/components/ui/PageHeader";
 import GlassCard from "../../../../../core/components/ui/GlassCard";
 import Button from "../../../../../core/components/ui/Button";
+import api from "../../../../../core/api/axiosConfig";
 
 export default function DashboardEnterprise() {
     const navigate = useNavigate();
+    const [stats, setStats] = useState({ recruiters: 0, instructores: 0, vacantes: 0, bootcamps: 0 });
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                const response = await api.get('/empresas/dashboard');
+                setStats(response.data);
+            } catch (error) {
+                console.error("Error fetching dashboard stats", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchStats();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="w-full min-h-[50vh] flex flex-col items-center justify-center">
+                <Loader2 className="w-12 h-12 text-cyan-400 animate-spin mb-4" />
+                <p className="text-slate-400">Cargando métricas...</p>
+            </div>
+        );
+    }
 
     return (
         <div className="w-full max-w-7xl mx-auto px-6 py-8 animate-fade-in-up">
@@ -19,7 +46,7 @@ export default function DashboardEnterprise() {
                 <GlassCard padding="p-6" borderColor="cyan">
                     <h3 className="text-slate-400 text-sm font-bold mb-2 uppercase tracking-wider">Recruiters Activos</h3>
                     <div className="flex items-end gap-3">
-                        <span className="text-4xl font-black text-white">12</span>
+                        <span className="text-4xl font-black text-white">{stats.recruiters}</span>
                         <span className="text-cyan-400 text-sm font-bold mb-1">en línea</span>
                     </div>
                 </GlassCard>
@@ -27,7 +54,7 @@ export default function DashboardEnterprise() {
                 <GlassCard padding="p-6" borderColor="purple">
                     <h3 className="text-slate-400 text-sm font-bold mb-2 uppercase tracking-wider">Instructores Activos</h3>
                     <div className="flex items-end gap-3">
-                        <span className="text-4xl font-black text-white">8</span>
+                        <span className="text-4xl font-black text-white">{stats.instructores}</span>
                         <span className="text-purple-400 text-sm font-bold mb-1">dando clases</span>
                     </div>
                 </GlassCard>
@@ -35,14 +62,14 @@ export default function DashboardEnterprise() {
                 <GlassCard padding="p-6" borderColor="emerald">
                     <h3 className="text-slate-400 text-sm font-bold mb-2 uppercase tracking-wider">Vacantes Abiertas</h3>
                     <div className="flex items-end gap-3">
-                        <span className="text-4xl font-black text-white">45</span>
+                        <span className="text-4xl font-black text-white">{stats.vacantes}</span>
                     </div>
                 </GlassCard>
 
                 <GlassCard padding="p-6" borderColor="yellow">
                     <h3 className="text-slate-400 text-sm font-bold mb-2 uppercase tracking-wider">Bootcamps Activos</h3>
                     <div className="flex items-end gap-3">
-                        <span className="text-4xl font-black text-white">3</span>
+                        <span className="text-4xl font-black text-white">{stats.bootcamps}</span>
                     </div>
                 </GlassCard>
             </div>
