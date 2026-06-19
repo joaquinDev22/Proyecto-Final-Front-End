@@ -55,7 +55,7 @@ export default function EnviarPropuesta() {
                                 rows={6}
                                 required
                                 placeholder="Describe tu enfoque paso a paso, por qué eres el candidato ideal y qué valor agregado aportarás..."
-                                className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/50 text-white placeholder-slate-500 resize-none transition-all"
+                                className="w-full bg-dark-bg/50 border border-white/10 rounded-[8px] p-2 text-sm outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/50 text-white placeholder-slate-500 resize-none transition-all"
                             ></textarea>
                             <p className="text-xs text-slate-500 mt-2">Una buena propuesta es concisa pero demuestra que entendiste la necesidad del cliente.</p>
                         </div>
@@ -66,7 +66,7 @@ export default function EnviarPropuesta() {
                                 placeholder="Ej: React Native, Firebase, Stripe..." 
                                 type="text" 
                                 required
-                                className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/50 text-white placeholder-slate-500 transition-all"
+                                className="w-full bg-dark-bg/50 border border-white/10 rounded-[8px] p-2 text-sm outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/50 text-white placeholder-slate-500 transition-all"
                             />
                         </div>
 
@@ -81,7 +81,7 @@ export default function EnviarPropuesta() {
                                         type="number"
                                         min="1"
                                         required
-                                        className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/50 text-white placeholder-slate-500 transition-all pl-8"
+                                        className="w-full bg-dark-bg/50 border border-white/10 rounded-[8px] p-2 text-sm outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/50 text-white placeholder-slate-500 transition-all pl-8"
                                     />
                                 </div>
                             </div>
@@ -91,7 +91,7 @@ export default function EnviarPropuesta() {
                                     placeholder="Ej: 3 semanas, 1 mes..."
                                     type="text"
                                     required
-                                    className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/50 text-white placeholder-slate-500 transition-all"
+                                    className="w-full bg-dark-bg/50 border border-white/10 rounded-[8px] p-2 text-sm outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/50 text-white placeholder-slate-500 transition-all"
                                 />
                             </div>
                         </div>

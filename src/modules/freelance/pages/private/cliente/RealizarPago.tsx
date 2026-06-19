@@ -50,7 +50,7 @@ export default function RealizarPago() {
                                 placeholder="Ej: JUAN PEREZ" 
                                 type="text" 
                                 required
-                                className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all uppercase"
+                                className="w-full bg-dark-bg/50 border border-white/10 rounded-[8px] p-2 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all uppercase"
                             />
                         </div>
 
@@ -63,7 +63,7 @@ export default function RealizarPago() {
                                     type="text" 
                                     required
                                     maxLength={19}
-                                    className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all pl-12 tracking-widest"
+                                    className="w-full bg-dark-bg/50 border border-white/10 rounded-[8px] p-2 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all pl-12 tracking-widest"
                                 />
                             </div>
                         </div>
@@ -76,7 +76,7 @@ export default function RealizarPago() {
                                     type="text" 
                                     required
                                     maxLength={5}
-                                    className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all text-center tracking-widest"
+                                    className="w-full bg-dark-bg/50 border border-white/10 rounded-[8px] p-2 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all text-center tracking-widest"
                                 />
                             </div>
                             <div>
@@ -86,7 +86,7 @@ export default function RealizarPago() {
                                     type="password" 
                                     required
                                     maxLength={4}
-                                    className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all text-center tracking-widest"
+                                    className="w-full bg-dark-bg/50 border border-white/10 rounded-[8px] p-2 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all text-center tracking-widest"
                                 />
                             </div>
                         </div>

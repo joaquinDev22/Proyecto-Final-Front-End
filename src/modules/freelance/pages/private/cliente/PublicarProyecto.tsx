@@ -60,7 +60,7 @@ export default function PublicarProyecto() {
                                 placeholder="Ej: Rediseño completo de App Móvil iOS/Android" 
                                 type="text" 
                                 required
-                                className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all"
+                                className="w-full bg-dark-bg/50 border border-white/10 rounded-[8px] p-2 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all"
                             />
                         </div>
 
@@ -71,7 +71,7 @@ export default function PublicarProyecto() {
                                 rows={6}
                                 required
                                 placeholder="Describe el alcance, los objetivos y qué esperas del freelancer..."
-                                className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 resize-none transition-all"
+                                className="w-full bg-dark-bg/50 border border-white/10 rounded-[8px] p-2 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 resize-none transition-all"
                             ></textarea>
                         </div>
 
@@ -95,7 +95,7 @@ export default function PublicarProyecto() {
                                     placeholder="Ej: React, Node.js, Figma..." 
                                     type="text" 
                                     required
-                                    className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all"
+                                    className="w-full bg-dark-bg/50 border border-white/10 rounded-[8px] p-2 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all"
                                 />
                             </div>
                         </div>
@@ -110,7 +110,7 @@ export default function PublicarProyecto() {
                                         placeholder="Ej: 500 - 1000" 
                                         type="text" 
                                         required
-                                        className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all pl-8"
+                                        className="w-full bg-dark-bg/50 border border-white/10 rounded-[8px] p-2 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all pl-8"
                                     />
                                 </div>
                             </div>
@@ -121,7 +121,7 @@ export default function PublicarProyecto() {
                                     placeholder="Ej: 2 semanas" 
                                     type="text" 
                                     required
-                                    className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all"
+                                    className="w-full bg-dark-bg/50 border border-white/10 rounded-[8px] p-2 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all"
                                 />
                             </div>
                         </div>

@@ -68,7 +68,7 @@ export default function PostulacionesRealizadas() {
                             </div>
 
                             {/* Feedback / Mensaje */}
-                            <div className="bg-dark-bg/30 rounded-xl p-4 border border-white/5">
+                            <div className="bg-dark-bg/30 rounded-[8px] p-2 border border-white/5">
                                 <h5 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Última actualización / Mensaje del Reclutador</h5>
                                 <p className="text-slate-300 text-sm leading-relaxed">{app.feedback}</p>
                             </div>

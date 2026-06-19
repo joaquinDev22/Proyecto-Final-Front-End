@@ -135,7 +135,7 @@ export default function Onboarding() {
                             <div className="w-full">
                                 <label className="text-slate-300 font-bold block mb-2 text-[0.7rem] uppercase tracking-wider">Descripción</label>
                                 <textarea
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-cyan-500 transition-colors"
+                                    className="w-full bg-white/5 border border-white/10 rounded-[8px] p-2 text-white focus:outline-none focus:border-cyan-500 transition-colors"
                                     placeholder="Describe a tu empresa..."
                                     name="descripcion"
                                     value={formData.descripcion}

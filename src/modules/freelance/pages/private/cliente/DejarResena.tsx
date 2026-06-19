@@ -64,7 +64,7 @@ export default function DejarResena() {
                                 placeholder="Ej: Excelente trabajo, entregado a tiempo." 
                                 type="text" 
                                 required
-                                className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/50 text-white placeholder-slate-500 transition-all"
+                                className="w-full bg-dark-bg/50 border border-white/10 rounded-[8px] p-2 text-sm outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/50 text-white placeholder-slate-500 transition-all"
                             />
                         </div>
 
@@ -74,7 +74,7 @@ export default function DejarResena() {
                                 rows={5}
                                 required
                                 placeholder="Describe tu experiencia trabajando con este freelancer. ¿Qué hizo bien? ¿Lo recomendarías?"
-                                className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/50 text-white placeholder-slate-500 resize-none transition-all"
+                                className="w-full bg-dark-bg/50 border border-white/10 rounded-[8px] p-2 text-sm outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/50 text-white placeholder-slate-500 resize-none transition-all"
                             ></textarea>
                         </div>
 

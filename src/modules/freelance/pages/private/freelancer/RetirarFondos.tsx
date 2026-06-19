@@ -63,7 +63,7 @@ export default function RetirarFondos() {
                                     placeholder="0.00" 
                                     required
                                     min="1"
-                                    className="w-full bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-lg outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all pl-8"
+                                    className="w-full bg-dark-bg/50 border border-white/10 rounded-[8px] p-2 text-lg outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all pl-8"
                                 />
                                 <button type="button" className="absolute right-4 top-1/2 -translate-y-1/2 text-cyan-400 font-bold text-sm hover:text-cyan-300">
                                     Máx

@@ -188,7 +188,7 @@ export default function PublicarVacante() {
                                     onChange={(e) => setFormData({...formData, description: e.target.value})}
                                     placeholder="Describe las responsabilidades, la misión del rol, etc..."
                                     required
-                                    className="w-full min-h-[120px] bg-dark-bg/50 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all resize-y"
+                                    className="w-full min-h-[120px] bg-dark-bg/50 border border-white/10 rounded-[8px] p-2 text-sm outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 text-white placeholder-slate-500 transition-all resize-y"
                                 />
                             </div>
                         </div>

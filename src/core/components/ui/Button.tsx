@@ -24,7 +24,7 @@ export default function Button({
     type = "button",
     ...props
 }: ButtonProps) {
-    const baseStyles = "inline-flex items-center justify-center font-medium transition-all duration-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed";
+    const baseStyles = "inline-flex items-center justify-center font-medium transition-all duration-300 rounded-[8px] disabled:opacity-50 disabled:cursor-not-allowed";
     
     const variants = {
         primary: "bg-cyan-500 text-white hover:bg-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)]",
@@ -35,9 +35,9 @@ export default function Button({
     };
 
     const sizes = {
-        sm: "text-sm px-3 py-1.5",
-        md: "text-sm px-4 py-2",
-        lg: "text-base px-6 py-3"
+        sm: "text-sm p-2",
+        md: "text-sm p-2",
+        lg: "text-base p-2"
     };
 
     const safeClassName = className || '';
