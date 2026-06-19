@@ -128,6 +128,10 @@ export default function PublicarVacante() {
                     <Button variant="outline" onClick={() => setIsPreviewing(false)}>Seguir Editando</Button>
                     <Button className="bg-cyan-600  border-0 rounded-[8px] p-2 hover:bg-cyan-500 text-white font-bold" onClick={handleSubmit}>Confirmar y Publicar</Button>
                 </div>
+
+                {isRendered && (
+                    <Alert message="¡Vacante publicada exitosamente! Redirigiendo..." type="success" isVisible={showAlert} />
+                )}
             </div>
         );
     }

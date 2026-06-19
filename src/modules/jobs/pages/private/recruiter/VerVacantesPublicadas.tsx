@@ -11,15 +11,22 @@ export default function VerVacantesPublicadas() {
     // TODO: Define proper types centrally
     const [vacantes, setVacantes] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
+    const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
     useEffect(() => {
-        // TODO: Fetch data from backend API
         const fetchVacantes = async () => {
             try {
-                // const response = await fetch('/api/recruiter/vacantes');
-                // const data = await response.json();
-                setVacantes([]);
+                const { jobService } = await import('../../../../../core/api/jobService');
+                const data = await jobService.getMyVacancies();
+                // Map the data appropriately if needed, or if it matches the interface just set it
+                const mappedData = data.map(job => ({
+                    id: job.id,
+                    title: job.title,
+                    type: job.locationType,
+                    status: 'Activo', // Defaulting to active for now
+                    applications: 0 // Mock applications count
+                }));
+                setVacantes(mappedData);
             } catch (error) {
                 console.error("Error fetching vacantes:", error);
             } finally {

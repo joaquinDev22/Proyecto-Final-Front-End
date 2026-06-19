@@ -41,6 +41,10 @@ export const jobService = {
     const response = await api.get(`/api/v1/vacantes/${id}`);
     return mapJob(response.data);
   },
+  getMyVacancies: async (): Promise<Job[]> => {
+    const response = await api.get('/api/v1/vacantes/me');
+    return response.data.map(mapJob);
+  },
   apply: async (id: number, data: any) => {
     const response = await api.post(`/api/v1/vacantes/${id}/postulaciones/me`, data);
     return response.data;
