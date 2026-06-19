@@ -33,7 +33,11 @@ export default function LoggedHeader() {
     };
 
     if (loading) {
-        return <p>Cargando...</p>
+        return (
+            <div className="w-full flex justify-center py-4 bg-[#0b1121]/90">
+                <div className="w-8 h-8 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+        );
     }
     return (
 

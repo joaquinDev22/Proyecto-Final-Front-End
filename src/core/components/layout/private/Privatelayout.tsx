@@ -6,7 +6,13 @@ export default function PrivateLayout() {
   const { isAuthenticated, user, loading } = useAuth();
   const location = useLocation();
 
-  if (loading) return <div>Cargando...</div>;
+  if (loading) {
+    return (
+      <div className="w-full min-h-screen bg-[#0b1121] flex justify-center items-center">
+        <div className="w-12 h-12 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
   if (!isAuthenticated) return <Navigate to="/login" replace />;
 
   let isIncomplete = false;
