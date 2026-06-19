@@ -45,6 +45,19 @@ export default function MisProyectosCliente() {
         fetchProjects();
     }, []);
 
+    const handleCancelProject = async (id: number) => {
+        if (!window.confirm("¿Estás seguro de que quieres dar de baja este proyecto?")) return;
+        
+        try {
+            const { freelanceService } = await import('../../../../../core/api/freelanceService');
+            await freelanceService.cancelProject(id);
+            setProjects(prev => prev.map(p => p.id === id ? { ...p, status: 'CANCELADO' } : p));
+        } catch (error) {
+            console.error("Error cancelling project", error);
+            alert("No se pudo cancelar el proyecto. Por favor, intenta de nuevo.");
+        }
+    };
+
     return (
         <div className="w-full max-w-7xl mx-auto px-6 py-8 animate-fade-in-up">
             <PageHeader 
@@ -66,11 +79,13 @@ export default function MisProyectosCliente() {
                                     {project.status === "BUSCANDO_TALENTO" && <Badge variant="info">Buscando Talento</Badge>}
                                     {project.status === "EN_PROGRESO" && <Badge variant="warning">En Progreso</Badge>}
                                     {project.status === "FINALIZADO" && <Badge variant="success">Finalizado</Badge>}
+                                    {project.status === "CANCELADO" && <Badge className="bg-red-500/20 text-red-400 border-red-500/50">Cancelado</Badge>}
                                 </div>
                                 
-                                {project.status === "BUSCANDO_TALENTO" && (
+                                {(project.status === "BUSCANDO_TALENTO" || project.status === "CANCELADO") && (
                                     <p className="text-slate-400 text-sm">
-                                        Presupuesto: {project.budget} • Publicado: {project.postedAt} • <span className="text-purple-400 font-bold">{project.proposals} propuestas recibidas</span>
+                                        Presupuesto: {project.budget} • Publicado: {project.postedAt} 
+                                        {project.status === "BUSCANDO_TALENTO" && <span className="text-purple-400 font-bold ml-1">• {project.proposals} propuestas recibidas</span>}
                                     </p>
                                 )}
 
@@ -97,7 +112,10 @@ export default function MisProyectosCliente() {
 
                             <div className="flex flex-col gap-3 min-w-[200px]">
                                 {project.status === "BUSCANDO_TALENTO" && (
-                                    <Button className="bg-purple-600 border-0 rounded-[8px] p-2 hover:bg-purple-500" onClick={() => navigate(`/cliente/mis-proyectos/${project.id}/propuestas`)}>Revisar Propuestas</Button>
+                                    <>
+                                        <Button className="bg-purple-600 border-0 rounded-[8px] p-2 hover:bg-purple-500" onClick={() => navigate(`/cliente/mis-proyectos/${project.id}/propuestas`)}>Revisar Propuestas</Button>
+                                        <Button className="bg-red-600/20 text-red-400 border border-red-500/50 rounded-[8px] p-2 hover:bg-red-600 hover:text-white transition-colors" onClick={() => handleCancelProject(project.id)}>Dar de Baja</Button>
+                                    </>
                                 )}
                                 {project.status === "EN_PROGRESO" && (
                                     <Button variant="outline" onClick={() => navigate(`/cliente/mis-proyectos/${project.id}/hitos`)}>Ver Hitos</Button>

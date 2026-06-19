@@ -49,5 +49,10 @@ export const freelanceService = {
   getMyAssignedProjects: async () => {
     const response = await api.get('/api/v1/freelance/proyectos/me/asignados');
     return response.data;
+  },
+
+  cancelProject: async (id: number) => {
+    const response = await api.put(`/api/v1/freelance/proyectos/${id}/cancelar`);
+    return response.data;
   }
 };
